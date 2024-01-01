@@ -1,0 +1,7 @@
+.idea
+node_modules
+docs
+dist
+frontend/coverage
+
+.env
