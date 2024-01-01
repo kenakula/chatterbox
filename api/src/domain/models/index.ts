@@ -1,2 +1,3 @@
-export * from '../repositories/user.repository';
 export * from './user.model';
+export * from './room.model';
+export * from './message.model';
