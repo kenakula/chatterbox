@@ -4,14 +4,17 @@ import {
   MessageBody, OnGatewayConnection, OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
+  WebSocketServer, WsException,
 } from '@nestjs/websockets';
 import { WsExceptionsFilter } from '@common/filters';
+import { LoggerService } from '@common/logger';
 import { MessageModel } from '@domain/models';
 import { Server, Socket } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 
+import { SaveMessageDto } from '@modules/rooms/dto';
 import { WsChatMessageDto, WsJoinRoomDto } from '@modules/rooms/dto/ws-messages.dto';
+import { RoomsService } from '@modules/rooms/rooms.service';
 import { ClientToServerEvents, ServerToClientEvents } from '@modules/rooms/usecases';
 import { IRoomsGatewayUsecases } from '@modules/rooms/usecases/rooms-gateway.usecases';
 
@@ -23,16 +26,22 @@ import { IRoomsGatewayUsecases } from '@modules/rooms/usecases/rooms-gateway.use
   },
 })
 export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IRoomsGatewayUsecases {
-
   @WebSocketServer()
   private readonly server = new Server<ServerToClientEvents, ClientToServerEvents>();
 
+  constructor(
+    private readonly roomsService: RoomsService,
+    private readonly logger: LoggerService,
+  ) {
+    this.logger.setContext(RoomGateway.name);
+  }
+
   handleConnection(socket: Socket) {
-    console.log(`socket ${socket.id} connected. Total connections: ${this.server.engine.clientsCount}`);
+    this.logger.log(`socket ${socket.id} connected. Total connections: ${this.server.engine.clientsCount}`);
   }
 
   handleDisconnect(socket: Socket) {
-    console.log(`socket ${socket.id} disconnected`);
+    this.logger.log(`socket ${socket.id} disconnected`);
   }
 
   @SubscribeMessage('chatMessage')
@@ -43,10 +52,15 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IR
     socket.join(roomId);
     const message = this.createMessage(text, sentBy);
 
-    this.server.to(roomId).emit('chatMessage', {
-      roomId,
-      message,
-    });
+    try {
+      await this.roomsService.saveMessage(roomId, message);
+      this.server.to(roomId).emit('chatMessage', {
+        roomId,
+        message,
+      });
+    } catch (err) {
+      throw new WsException('Message was not sent');
+    }
   }
 
   @SubscribeMessage('joinRoom')
@@ -56,8 +70,9 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IR
   ) {
     socket.join(roomId);
 
-    const message = this.createMessage(`Hello ${user}! Welcome to ${roomId}`, user);
+    const message = this.createMessage(`Hello ${user}! Welcome to ${roomId}`, 'system');
 
+    this.logger.log(`User: ${user} joined room ${roomId};`);
     this.server.to(roomId).emit('chatMessage', {
       roomId,
       message,
@@ -65,7 +80,7 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IR
   }
 
   private createMessage(text: string, user: string): MessageModel {
-    const message = new MessageModel();
+    const message = new SaveMessageDto();
     message.text = text;
     message.timestamp = Date.now();
     message.sentBy = user;

@@ -54,12 +54,21 @@ export class RoomsService implements IRoomsUsecases<TRoomDocument> {
 
   async saveMessage(roomId: string, message: SaveMessageDto): Promise<void> {
     const room = await this.roomModel.findById(roomId);
+
+    if (!room) {
+      throw new NotFoundException('Room with defined id not found');
+    }
+
     room.messages.push(message);
     await room.save();
   }
 
   async deleteMessage(roomId: string, messageId: string): Promise<void> {
     const room = await this.roomModel.findById(roomId);
+
+    if (!room) {
+      throw new NotFoundException('Room with defined id not found');
+    }
 
     room.messages = room.messages
       .slice()

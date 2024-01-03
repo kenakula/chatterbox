@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 
-import { CreateRoomDto, DeleteMessageDto, RoomPresenterDto, SaveMessageDto, UpdateRoomDto } from './dto';
+import { CreateRoomDto, RoomPresenterDto, UpdateRoomDto } from './dto';
 import { RoomsService } from './rooms.service';
 
 @Controller('rooms')
@@ -41,13 +41,13 @@ export class RoomsController {
     return this.roomsService.delete(id);
   }
 
-  @Post(':id')
-  async saveMessage(@Param('id') id: string, @Body() message: SaveMessageDto) {
-    return this.roomsService.saveMessage(id, message);
+  @Delete(':roomId/:messageId')
+  async deleteMessage(@Param('roomId') roomId: string, @Param('messageId') messageId: string) {
+    return this.roomsService.deleteMessage(roomId, messageId);
   }
 
-  @Post('message/:id')
-  async deleteMessage(@Param('id') id: string, @Body() message: DeleteMessageDto) {
-    return this.roomsService.deleteMessage(id, message.id);
+  @Post(':id')
+  async clearMessages(@Param('id') id: string) {
+    return this.roomsService.clearMessages(id);
   }
 }
