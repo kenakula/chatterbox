@@ -12,7 +12,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, ICommonRespons
     const now = Date.now();
 
     return next.handle().pipe(map(res => ({
-      isArray: Array.isArray(res),
+      count: Array.isArray(res) ? res.length : undefined,
       duration: `${Date.now() - now}ms`,
       path: request.path,
       method: request.method,

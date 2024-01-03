@@ -5,9 +5,10 @@ import { LoggerModule } from '@common/logger';
 
 import { RoomsModule } from '@modules/rooms';
 import { UsersModule } from '@modules/users';
+import { MessagesModule } from './modules/messages/messages.module';
 
 @Module({
-  imports: [ConfigsModule, DatabaseModule, LoggerModule, UsersModule, RoomsModule],
+  imports: [ConfigsModule, DatabaseModule, LoggerModule, UsersModule, RoomsModule, MessagesModule],
 })
 export class AppModule {
 }

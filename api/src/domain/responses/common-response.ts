@@ -1,5 +1,5 @@
 export interface ICommonResponse<T> {
-  isArray: boolean;
+  count: number;
   path: string;
   duration: string;
   method: string;

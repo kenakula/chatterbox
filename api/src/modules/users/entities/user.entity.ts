@@ -3,8 +3,8 @@ import { HydratedDocument } from 'mongoose';
 
 @Schema({ timestamps: true, virtuals: true })
 export class User {
-  @Prop({ unique: true })
-  userId: string;
+  @Prop()
+  id: string;
 
   @Prop()
   username: string;

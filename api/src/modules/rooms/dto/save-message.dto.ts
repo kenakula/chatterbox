@@ -1,4 +1,4 @@
-export class MessageModel {
+export class SaveMessageDto {
   id: string;
   
   text: string;

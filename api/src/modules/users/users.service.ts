@@ -1,43 +1,55 @@
-import { Injectable } from '@nestjs/common';
-import { UserModel } from '@domain/models';
-import { v4 as uuidv4 } from 'uuid';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 import { CreateUserDto, UpdateUserDto } from './dto';
-import { UsersRepository } from './users-repository.service';
+import { TUserDocument, User } from './entities';
+import { IUserUsecases } from './usecases';
 
 @Injectable()
-export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {
+export class UsersService implements IUserUsecases<TUserDocument> {
+  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {
   }
 
-  create({ username, password, passwordConfirm }: CreateUserDto) {
-    const user = new UserModel();
-    user.userId = uuidv4();
-    user.isActive = true;
-    user.username = username;
-    user.password = password;
-    user.passwordConfirm = passwordConfirm;
+  async createUser(userDto: CreateUserDto): Promise<TUserDocument> {
+    const existingUser = await this.userModel.findOne({ username: userDto.username });
 
-    return this.usersRepository.createUser(user);
+    if (existingUser) {
+      throw new BadRequestException('User already exists');
+    }
+
+    return this.userModel.create(userDto);
   }
 
-  findAll() {
-    return this.usersRepository.findAll();
+  async findAll() {
+    return this.userModel.find();
   }
 
-  findOne(id: string) {
-    return this.usersRepository.findById(id);
+  async findById(id: string) {
+    const user = await this.userModel.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('User with defined id not found');
+    }
+
+    return user;
   }
 
-  update(id: string, { username, isActive }: UpdateUserDto) {
-    const user = new UserModel();
-    user.username = username;
-    user.isActive = isActive;
+  async update(id: string, userDto: UpdateUserDto) {
+    const user = await this.userModel.findByIdAndUpdate(id, userDto);
 
-    return this.usersRepository.updateById(id, user);
+    if (!user) {
+      throw new NotFoundException('User with defined id not found');
+    }
+
+    return this.userModel.findById(id);
   }
 
-  remove(id: string) {
-    return this.usersRepository.deleteById(id);
+  async delete(id: string) {
+    const user = await this.userModel.findByIdAndDelete(id);
+
+    if (!user) {
+      throw new NotFoundException('User with defined id not found');
+    }
   }
 }

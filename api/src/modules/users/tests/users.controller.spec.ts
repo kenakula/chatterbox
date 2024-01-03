@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserModel } from '@domain/models';
+
+import { UserPresenterDto } from '@modules/users/dto';
 
 import { UsersController } from '../users.controller';
 import { UsersService } from '../users.service';
@@ -27,7 +28,7 @@ describe('UsersController', () => {
   });
 
   describe('get all users', () => {
-    let users: UserModel[];
+    let users: UserPresenterDto[];
 
     beforeEach(async () => {
       users = await controller.findAll();
@@ -43,14 +44,14 @@ describe('UsersController', () => {
   });
 
   describe('get user by id', () => {
-    let user: UserModel;
+    let user: UserPresenterDto;
 
     beforeEach(async () => {
       user = await controller.findOne('testId');
     });
 
     it('should call service method', () => {
-      expect(service.findOne).toHaveBeenCalledTimes(1);
+      expect(service.findById).toHaveBeenCalledTimes(1);
     });
 
     it('should return user object', () => {
@@ -59,14 +60,14 @@ describe('UsersController', () => {
   });
 
   describe('create user', () => {
-    let user: UserModel;
+    let user: UserPresenterDto;
 
     beforeEach(async () => {
       user = await controller.create(createUserStub());
     });
 
     it('should call service method', () => {
-      expect(service.create).toHaveBeenCalledTimes(1);
+      expect(service.createUser).toHaveBeenCalledTimes(1);
     });
 
     it('should return user object', () => {
@@ -75,7 +76,7 @@ describe('UsersController', () => {
   });
 
   describe('update user by id', () => {
-    let user: UserModel;
+    let user: UserPresenterDto;
 
     beforeEach(async () => {
       user = await controller.update('testId', updateUserStub());
@@ -96,7 +97,7 @@ describe('UsersController', () => {
     });
 
     it('should call service method', () => {
-      expect(service.remove).toHaveBeenCalledTimes(1);
+      expect(service.delete).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -6,4 +6,6 @@ export class UpdateRoomDto extends PartialType(CreateRoomDto) {
   name: string;
 
   description: string;
+
+  users: string[];
 }

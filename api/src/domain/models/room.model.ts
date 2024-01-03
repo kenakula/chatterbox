@@ -4,8 +4,6 @@ import { UserModel } from './user.model';
 export class RoomModel {
   id: string;
 
-  roomId: string;
-
   name: string;
 
   description: string;

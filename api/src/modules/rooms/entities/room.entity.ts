@@ -1,4 +1,5 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { MessageModel } from '@domain/models';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 
@@ -6,9 +7,6 @@ import { User } from '@modules/users/entities';
 
 @Schema({ timestamps: true, virtuals: true })
 export class Room {
-  @Prop({ unique: true })
-  roomId: string;
-
   @Prop({ required: true })
   name: string;
 
@@ -24,8 +22,17 @@ export class Room {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   users: User[];
 
-  @Prop(raw({}))
-  messages: Record<string, string>;
+  @Prop({
+    type: [
+      raw({
+        id: { type: String },
+        text: { type: String },
+        sentBy: { type: String },
+        timestamp: { type: Number },
+      }),
+    ],
+  })
+  messages: MessageModel[];
 }
 
 export type TRoomDocument = HydratedDocument<Room>;
