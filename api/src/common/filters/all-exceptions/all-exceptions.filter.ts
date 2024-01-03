@@ -8,9 +8,9 @@ import { Request } from 'express';
 export class AllExceptionsFilter implements ExceptionFilter {
   private readonly logger = new LoggerService();
 
-  constructor(private readonly httpAdapterHost: HttpAdapterHost) {
-  }
+  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
+  // TODO сузить эксепшн, сделать отдельный для http
   catch(exception: unknown, host: ArgumentsHost) {
     const { httpAdapter } = this.httpAdapterHost;
 

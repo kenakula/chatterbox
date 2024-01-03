@@ -1,6 +1,6 @@
 export class SaveMessageDto {
-  id: string;
-  
+  messageId: string;
+
   text: string;
 
   timestamp: number;

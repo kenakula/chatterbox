@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { ConfigKey } from '@common/configs';
@@ -26,6 +27,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggerInterceptor(new LoggerService()));
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter(adapterHost));
+  app.useGlobalPipes(new ValidationPipe());
   app.use(compression());
   app.use(helmet());
 

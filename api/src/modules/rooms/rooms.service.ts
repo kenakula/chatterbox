@@ -1,16 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { MessageModel } from '@domain/models';
 import { Model } from 'mongoose';
 
-import { CreateRoomDto, UpdateRoomDto } from '@modules/rooms/dto';
+import { CreateRoomDto, SaveMessageDto, UpdateRoomDto } from '@modules/rooms/dto';
 import { Room, TRoomDocument } from '@modules/rooms/entities';
 import { IRoomsUsecases } from '@modules/rooms/usecases';
 
 @Injectable()
 export class RoomsService implements IRoomsUsecases<TRoomDocument> {
-  constructor(@InjectModel(Room.name) private readonly roomModel: Model<Room>) {
-  }
+  constructor(@InjectModel(Room.name) private readonly roomModel: Model<Room>) {}
 
   createRoom(data: CreateRoomDto): Promise<TRoomDocument> {
     return this.roomModel.create(data);
@@ -54,7 +52,7 @@ export class RoomsService implements IRoomsUsecases<TRoomDocument> {
       .populate({ path: 'users' });
   }
 
-  async saveMessage(roomId: string, message: MessageModel): Promise<void> {
+  async saveMessage(roomId: string, message: SaveMessageDto): Promise<void> {
     const room = await this.roomModel.findById(roomId);
     room.messages.push(message);
     await room.save();
