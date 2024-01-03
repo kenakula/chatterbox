@@ -1,6 +1,6 @@
 export class MessageModel {
-  id: string;
-  
+  messageId: string;
+
   text: string;
 
   timestamp: number;

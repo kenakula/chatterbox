@@ -7,7 +7,7 @@ import { AppModule } from '../../../app.module';
 
 import { ResponseInterceptor } from './response.interceptor';
 
-const RESPONSE_KEYS = ['isArray', 'data', 'method', 'duration', 'statusCode', 'path'];
+const RESPONSE_KEYS = ['count', 'data', 'method', 'duration', 'statusCode', 'path'];
 
 describe('ResponseInterceptor', () => {
   let app: INestApplication;

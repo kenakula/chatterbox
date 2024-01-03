@@ -1,4 +1,4 @@
-import { RoomModel } from '@domain/models';
+import { MessageModel, RoomModel } from '@domain/models';
 
 import { CreateRoomDto, UpdateRoomDto } from '@modules/rooms/dto';
 
@@ -29,4 +29,16 @@ export const updateRoomStub = (option?: IStubOptions): UpdateRoomDto => ({
   name: option?.name ?? 'testRoomName-updated',
   description: option?.name ?? 'testRoomDescription-updated',
   users: option?.users ?? [],
+});
+
+interface IMessageStubOptions {
+  messageId?: string;
+  text?: string;
+}
+
+export const messageStub = (options?: IMessageStubOptions): MessageModel => ({
+  messageId: options?.messageId ?? 'testMessageId',
+  text: options?.text ?? 'testMessageText',
+  timestamp: Date.now(),
+  sentBy: 'testSentById',
 });

@@ -17,4 +17,6 @@ export interface IRoomsUsecases<T extends Document> {
   saveMessage(roomId: string, message: MessageModel): Promise<void>;
 
   deleteMessage(roomId: string, messageId: string): Promise<void>;
+
+  clearMessages(roomId: string): Promise<void>;
 }

@@ -25,7 +25,7 @@ export class Room {
   @Prop({
     type: [
       raw({
-        id: { type: String },
+        messageId: { type: String },
         text: { type: String },
         sentBy: { type: String },
         timestamp: { type: Number },

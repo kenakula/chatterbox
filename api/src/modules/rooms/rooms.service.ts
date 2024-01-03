@@ -57,7 +57,7 @@ export class RoomsService implements IRoomsUsecases<TRoomDocument> {
   async saveMessage(roomId: string, message: MessageModel): Promise<void> {
     const room = await this.roomModel.findById(roomId);
     room.messages.push(message);
-    room.save();
+    await room.save();
   }
 
   async deleteMessage(roomId: string, messageId: string): Promise<void> {
@@ -65,9 +65,9 @@ export class RoomsService implements IRoomsUsecases<TRoomDocument> {
 
     room.messages = room.messages
       .slice()
-      .filter(message => message.id !== messageId);
+      .filter(message => message.messageId !== messageId);
 
-    room.save();
+    await room.save();
   }
 
   async clearMessages(roomId: string): Promise<void> {

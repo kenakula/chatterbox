@@ -6,4 +6,7 @@ export const RoomsService = jest.fn().mockReturnValue({
   findAll: jest.fn().mockReturnValue([createRoomStub(), createRoomStub(), createRoomStub()]),
   findById: jest.fn().mockResolvedValue(createRoomStub()),
   update: jest.fn().mockResolvedValue(createRoomStub()),
+  saveMessage: jest.fn(),
+  deleteMessage: jest.fn(),
+  clearMessages: jest.fn(),
 });

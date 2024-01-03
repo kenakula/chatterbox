@@ -1,11 +1,13 @@
 import { NotFoundException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import { MessageModel } from '@domain/models';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model } from 'mongoose';
 
 import { Room, RoomSchema, TRoomDocument } from '@modules/rooms/entities';
-import { createRoomStub, roomStub, updateRoomStub } from '@modules/rooms/tests/room.stub';
+import { createRoomStub, messageStub, roomStub, updateRoomStub } from '@modules/rooms/tests/room.stub';
+import { User, UserSchema } from '@modules/users/entities';
 
 import { RoomsService } from '../rooms.service';
 
@@ -13,6 +15,7 @@ describe('RoomsService', () => {
   let mongod: MongoMemoryServer;
   let mongoConnection: Connection;
   let roomModel: Model<Room>;
+  let userModel: Model<User>;
   let service: RoomsService;
 
   afterEach(async () => {
@@ -34,12 +37,17 @@ describe('RoomsService', () => {
     const uri = mongod.getUri();
     mongoConnection = (await connect(uri)).connection;
     roomModel = mongoConnection.model(Room.name, RoomSchema);
+    userModel = mongoConnection.model(User.name, UserSchema);
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         RoomsService, {
           provide: getModelToken(Room.name),
           useValue: roomModel,
+        },
+        {
+          provide: getModelToken(User.name),
+          useValue: userModel,
         },
       ],
     }).compile();
@@ -53,6 +61,16 @@ describe('RoomsService', () => {
       const stub = roomStub({ name: `testRoom-${i}` });
       await roomModel.create(stub);
     }
+  };
+
+  const createMessages = (count: number): MessageModel[] => {
+    const messages: MessageModel[] = [];
+
+    for (let i = 0; i < count; i++) {
+      messages.push(messageStub({ messageId: `testId-${i}` }));
+    }
+
+    return messages;
   };
 
   it('should be defined', () => {
@@ -173,6 +191,44 @@ describe('RoomsService', () => {
       } catch (err) {
         expect(err).toBeInstanceOf(NotFoundException);
       }
+    });
+  });
+
+  describe('handle messages', () => {
+    let room: TRoomDocument;
+    const roomObj = createRoomStub();
+    const messages = createMessages(5);
+
+    const checkRoomMessages = async (count: number): Promise<void> => {
+      const updatedRoom = await roomModel.findById(room.id);
+
+      expect(updatedRoom.messages).toHaveLength(count);
+    };
+
+    beforeEach(async () => {
+      room = await roomModel.create(roomObj);
+
+      for (const message of messages) {
+        await service.saveMessage(room.id, message);
+      }
+    });
+
+    it('should save message to room', async () => {
+      await checkRoomMessages(5);
+    });
+
+    it('should clear all messages', async () => {
+      await service.clearMessages(room.id);
+
+      await checkRoomMessages(0);
+    });
+
+    it('should delete message by id', async () => {
+      const messageIdToDelete = messages[2].messageId;
+
+      await service.deleteMessage(room.id, messageIdToDelete);
+
+      await checkRoomMessages(4);
     });
   });
 });
