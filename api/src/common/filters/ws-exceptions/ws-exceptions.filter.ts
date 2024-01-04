@@ -11,7 +11,6 @@ export interface IWsException {
   status: number;
 }
 
-// TODO дополнить сообщение об ошибке
 @Catch()
 export class WsExceptionsFilter extends BaseWsExceptionFilter<IWsException> {
   private readonly logger = new LoggerService();

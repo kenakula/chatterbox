@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigKey } from '@common/configs';
 import { AllExceptionsFilter } from '@common/filters';
 import { LoggerInterceptor, ResponseInterceptor } from '@common/interceptors';
@@ -30,6 +31,13 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(compression());
   app.use(helmet());
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Chatterbox')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('swagger', app, document);
 
   const config = app.get(ConfigService);
   const port = config.get(`${ConfigKey.App}.port`);

@@ -101,4 +101,32 @@ describe('RoomsController', () => {
       expect(service.delete).toHaveBeenCalledWith('testId');
     });
   });
+
+  describe('delete message by id', () => {
+    beforeEach(async () => {
+      await controller.deleteMessage('roomId', 'messageId');
+    });
+
+    it('should call service method', () => {
+      expect(service.deleteMessage).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call service method with correct params', () => {
+      expect(service.deleteMessage).toHaveBeenCalledWith('roomId', 'messageId');
+    });
+  });
+
+  describe('clear messages', () => {
+    beforeEach(async () => {
+      await controller.clearMessages('roomId');
+    });
+
+    it('should call service method', () => {
+      expect(service.clearMessages).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call service method with correct params', () => {
+      expect(service.clearMessages).toHaveBeenCalledWith('roomId');
+    });
+  });
 });

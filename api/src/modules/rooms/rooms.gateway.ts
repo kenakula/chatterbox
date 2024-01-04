@@ -25,16 +25,15 @@ import { IRoomsGatewayUsecases } from '@modules/rooms/usecases/rooms-gateway.use
     origin: '*',
   },
 })
-export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IRoomsGatewayUsecases {
+export class RoomsGateway implements OnGatewayConnection, OnGatewayDisconnect, IRoomsGatewayUsecases {
+  private readonly logger = new LoggerService(RoomsGateway.name);
+
   @WebSocketServer()
   private readonly server = new Server<ServerToClientEvents, ClientToServerEvents>();
 
   constructor(
     private readonly roomsService: RoomsService,
-    private readonly logger: LoggerService,
-  ) {
-    this.logger.setContext(RoomGateway.name);
-  }
+  ) {}
 
   handleConnection(socket: Socket) {
     this.logger.log(`socket ${socket.id} connected. Total connections: ${this.server.engine.clientsCount}`);
@@ -70,9 +69,9 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect, IR
   ) {
     socket.join(roomId);
 
+    this.logger.log(`user ${user} joined the room`);
     const message = this.createMessage(`Hello ${user}! Welcome to ${roomId}`, 'system');
 
-    this.logger.log(`User: ${user} joined room ${roomId};`);
     this.server.to(roomId).emit('chatMessage', {
       roomId,
       message,
