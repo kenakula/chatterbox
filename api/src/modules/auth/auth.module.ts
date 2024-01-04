@@ -8,15 +8,17 @@ import { UsersModule } from '@modules/users';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtConfigService } from './jwt-config.service';
-import { LocalStrategy } from './strategies';
+import { JwtStrategy, LocalStrategy } from './strategies';
 
 @Module({
-  providers: [AuthService, LocalStrategy, JwtConfigService, HashingService],
+  providers: [AuthService, LocalStrategy, JwtStrategy, HashingService],
   controllers: [AuthController],
   imports: [
-    UsersModule, PassportModule, JwtModule.registerAsync({
+    JwtModule.registerAsync({
       useClass: JwtConfigService,
     }),
+    UsersModule,
+    PassportModule,
   ],
   exports: [AuthService],
 })

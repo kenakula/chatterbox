@@ -1,9 +1,7 @@
-import { AuthResultModel } from '@app/core/models/auth-result.model';
-
-import { TAuthedUser } from '../interfaces';
+import { ILoginResult, TAuthedUser } from '../interfaces';
 
 export interface IAuthUsecases {
   validateUser(username: string, pass: string): Promise<TAuthedUser | null>;
 
-  login(user: TAuthedUser): Promise<AuthResultModel>;
+  login(user: TAuthedUser): Promise<ILoginResult>;
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HashingService } from '@common/helpers';
+import { UserModel } from '@core/models';
 
-import { AuthResultModel } from '@app/core/models/auth-result.model';
-import { IJwtPayloadInterface, TAuthedUser } from '@modules/auth/interfaces';
+import { IJwtPayloadInterface, ILoginResult, TAuthedUser } from '@modules/auth/interfaces';
+import { TUserDocument } from '@modules/users/entities';
 import { UsersService } from '@modules/users/users.service';
 
 import { IAuthUsecases } from './usecases';
@@ -21,7 +22,7 @@ export class AuthService implements IAuthUsecases {
     const isPassValid = await this.hashingService.compare(pass, user.password);
 
     if (user && isPassValid) {
-      const { password, ...result } = user;
+      const { password, ...result } = this.toUserModel(user);
 
       return result;
     }
@@ -29,11 +30,20 @@ export class AuthService implements IAuthUsecases {
     return null;
   }
 
-  async login(user: TAuthedUser): Promise<AuthResultModel> {
+  async login(user: TAuthedUser): Promise<ILoginResult> {
     const payload: IJwtPayloadInterface = { username: user.username, sub: user.id };
 
     return {
       refreshToken: this.jwtService.sign(payload),
+      authToken: this.jwtService.sign(payload),
     };
+  }
+
+  private toUserModel(doc: TUserDocument): UserModel {
+    const model = new UserModel();
+    model.username = doc.username;
+    model.id = doc._id.toString();
+
+    return model;
   }
 }

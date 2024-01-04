@@ -1,3 +1,3 @@
 import { UserModel } from '@app/core/models';
 
-export type TAuthedUser = Omit<UserModel, 'passwordConfirm' | 'password'>;
+export type TAuthedUser = Omit<UserModel, 'password'>;
