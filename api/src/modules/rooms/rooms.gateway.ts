@@ -8,10 +8,10 @@ import {
 } from '@nestjs/websockets';
 import { WsExceptionsFilter } from '@common/filters';
 import { LoggerService } from '@common/logger';
-import { MessageModel } from '@domain/models';
 import { Server, Socket } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 
+import { MessageModel } from '@app/core/models';
 import { SaveMessageDto } from '@modules/rooms/dto';
 import { WsChatMessageDto, WsJoinRoomDto } from '@modules/rooms/dto/ws-messages.dto';
 import { RoomsService } from '@modules/rooms/rooms.service';

@@ -1,6 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { ICommonResponse } from '@domain/responses';
 import { map, Observable } from 'rxjs';
+
+import { ICommonResponse } from '@app/core/responses';
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, ICommonResponse<T>> {

@@ -1,5 +1,4 @@
-import { UserModel } from '@domain/models';
-
+import { UserModel } from '@app/core/models';
 import { TUserDocument } from '@modules/users/entities';
 
 export class UserPresenterDto extends UserModel {

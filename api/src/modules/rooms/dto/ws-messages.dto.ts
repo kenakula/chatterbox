@@ -1,5 +1,6 @@
-import { MessageModel } from '@domain/models';
 import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+
+import { MessageModel } from '@app/core/models';
 
 export class WsJoinRoomDto {
   @IsNotEmpty()

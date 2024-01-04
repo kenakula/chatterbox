@@ -1,4 +1,4 @@
-import { AuthResultModel } from '@domain/models/auth-result.model';
+import { AuthResultModel } from '@app/core/models/auth-result.model';
 
 import { TAuthedUser } from '../interfaces';
 

@@ -1,8 +1,8 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { MessageModel } from '@domain/models';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 
+import { MessageModel } from '@app/core/models';
 import { User } from '@modules/users/entities';
 
 @Schema({ timestamps: true, virtuals: true })

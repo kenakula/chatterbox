@@ -100,7 +100,7 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^@app/(.*)$": "<rootDir>/../src/$1",
-      "^@domain/(.*)$": "<rootDir>/../src/domain/$1",
+      "^@core/(.*)$": "<rootDir>/../src/core/$1",
       "^@common/(.*)$": "<rootDir>/../src/common/$1",
       "^@modules/(.*)$": "<rootDir>/../src/modules/$1"
     }

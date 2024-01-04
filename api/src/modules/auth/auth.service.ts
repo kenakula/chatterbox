@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HashingService } from '@common/helpers';
-import { AuthResultModel } from '@domain/models/auth-result.model';
 
+import { AuthResultModel } from '@app/core/models/auth-result.model';
 import { IJwtPayloadInterface, TAuthedUser } from '@modules/auth/interfaces';
 import { UsersService } from '@modules/users/users.service';
 

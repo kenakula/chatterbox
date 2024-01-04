@@ -1,5 +1,4 @@
-import { RoomModel, UserModel } from '@domain/models';
-
+import { RoomModel, UserModel } from '@app/core/models';
 import { TRoomDocument } from '@modules/rooms/entities';
 import { User } from '@modules/users/entities';
 

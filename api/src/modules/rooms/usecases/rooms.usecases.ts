@@ -1,6 +1,6 @@
-import { MessageModel } from '@domain/models';
 import { Document } from 'mongoose';
 
+import { MessageModel } from '@app/core/models';
 import { CreateRoomDto, UpdateRoomDto } from '@modules/rooms/dto';
 
 export interface IRoomsUsecases<T extends Document> {

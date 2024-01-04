@@ -1,5 +1,4 @@
-import { MessageModel, RoomModel } from '@domain/models';
-
+import { MessageModel, RoomModel } from '@app/core/models';
 import { CreateRoomDto, UpdateRoomDto } from '@modules/rooms/dto';
 
 interface IStubOptions {

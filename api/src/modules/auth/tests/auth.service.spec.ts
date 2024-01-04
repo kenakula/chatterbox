@@ -5,10 +5,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigsModule } from '@common/configs';
 import { DatabaseModule } from '@common/database';
 import { HashingService } from '@common/helpers';
-import { UserModel } from '@domain/models';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model } from 'mongoose';
 
+import { UserModel } from '@app/core/models';
 import { UsersModule } from '@modules/users';
 import { TUserDocument, User, UserSchema } from '@modules/users/entities';
 import { createUserStub, userStub } from '@modules/users/tests/user.stub';

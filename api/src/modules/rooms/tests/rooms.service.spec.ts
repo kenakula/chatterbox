@@ -1,10 +1,10 @@
 import { NotFoundException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MessageModel } from '@domain/models';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model } from 'mongoose';
 
+import { MessageModel } from '@app/core/models';
 import { Room, RoomSchema, TRoomDocument } from '@modules/rooms/entities';
 import { createRoomStub, messageStub, roomStub, updateRoomStub } from '@modules/rooms/tests/room.stub';
 import { User, UserSchema } from '@modules/users/entities';

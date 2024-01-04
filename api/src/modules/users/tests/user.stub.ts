@@ -1,5 +1,4 @@
-import { UserModel } from '@domain/models';
-
+import { UserModel } from '@app/core/models';
 import { CreateUserDto, UpdateUserDto } from '@modules/users/dto';
 
 interface IStubOptions {
