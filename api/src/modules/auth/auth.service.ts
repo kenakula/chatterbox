@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HashingService } from '@common/helpers';
 import { UserModel } from '@core/models';
 
-import { IJwtPayloadInterface, ILoginResult, TAuthedUser } from '@modules/auth/interfaces';
+import { SignupDto } from '@modules/auth/dto';
+import { IAuthResult, IJwtPayloadInterface, TAuthedUser } from '@modules/auth/interfaces';
 import { TUserDocument } from '@modules/users/entities';
 import { UsersService } from '@modules/users/users.service';
 
@@ -30,8 +31,22 @@ export class AuthService implements IAuthUsecases {
     return null;
   }
 
-  async login(user: TAuthedUser): Promise<ILoginResult> {
+  async login(user: TAuthedUser): Promise<IAuthResult> {
     const payload: IJwtPayloadInterface = { username: user.username, sub: user.id };
+
+    return {
+      refreshToken: this.jwtService.sign(payload),
+      authToken: this.jwtService.sign(payload),
+    };
+  }
+
+  async signup({ passwordConfirm, ...rest }: SignupDto): Promise<IAuthResult> {
+    if (passwordConfirm !== rest.password) {
+      throw new BadRequestException('Passwords do not match');
+    }
+
+    const user = await this.usersService.createUser(rest);
+    const payload: IJwtPayloadInterface = { username: user.username, sub: user._id.toString() };
 
     return {
       refreshToken: this.jwtService.sign(payload),
