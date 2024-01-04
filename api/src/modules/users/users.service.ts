@@ -21,15 +21,7 @@ export class UsersService implements IUserUsecases<TUserDocument> {
       throw new BadRequestException('User already exists');
     }
 
-    if (userDto.password !== userDto.passwordConfirm) {
-      throw new BadRequestException('Passwords do not match');
-    }
-
-    const newUser = await this.userModel.create(userDto);
-    newUser.password = await this.hashingService.toHashed(userDto.password);
-    await newUser.save();
-
-    return newUser;
+    return this.userModel.create(userDto);
   }
 
   async findAll() {
@@ -50,7 +42,7 @@ export class UsersService implements IUserUsecases<TUserDocument> {
     const user = await this.userModel.findOne({ username });
 
     if (!user) {
-      throw new NotFoundException('User with defined id not found');
+      throw new NotFoundException('User with defined username not found');
     }
 
     return user;

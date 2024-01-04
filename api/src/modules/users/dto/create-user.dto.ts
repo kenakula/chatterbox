@@ -11,9 +11,4 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
-
-  @ApiProperty({ example: '123123' })
-  @IsString()
-  @IsNotEmpty()
-  passwordConfirm: string;
 }

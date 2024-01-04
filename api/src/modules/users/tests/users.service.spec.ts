@@ -74,19 +74,6 @@ describe('UsersService', () => {
       expect(users).toHaveLength(1);
     });
 
-    it('should call hashing service', async () => {
-      await service.createUser(createUserStub());
-
-      expect(hashingService.toHashed).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call hashing service with correct arg', async () => {
-      const stub = createUserStub();
-      await service.createUser(stub);
-
-      expect(hashingService.toHashed).toHaveBeenCalledWith(stub.password);
-    });
-
     it('should create user with defined username', async () => {
       await service.createUser(createUserStub({ username: 'testUserName123' }));
 
