@@ -32,14 +32,16 @@ async function bootstrap() {
   app.use(compression());
   app.use(helmet());
 
+  const config = app.get(ConfigService);
+
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Chatterbox')
     .setVersion('1.0')
+    .addCookieAuth(config.get(`${ConfigKey.Auth}.jwtCookieName`))
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
 
-  const config = app.get(ConfigService);
   const port = config.get(`${ConfigKey.App}.port`);
   await app.listen(port, () => {
     console.log('------------ 🚀🚀🚀 ------------');

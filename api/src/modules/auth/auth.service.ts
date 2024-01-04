@@ -39,9 +39,16 @@ export class AuthService implements IAuthUsecases {
     };
   }
 
+  async getMe(userId: string): Promise<UserModel> {
+    const doc = await this.usersService.findById(userId);
+
+    return this.toUserModel(doc);
+  }
+
   private toUserModel(doc: TUserDocument): UserModel {
     const model = new UserModel();
     model.username = doc.username;
+    model.isActive = doc.isActive;
     model.id = doc._id.toString();
 
     return model;
