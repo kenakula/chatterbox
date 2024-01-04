@@ -21,7 +21,7 @@ export class AuthService implements IAuthUsecases {
     const isPassValid = await this.hashingService.compare(pass, user.password);
 
     if (user && isPassValid) {
-      const { password, passwordConfirm, ...result } = user;
+      const { password, ...result } = user;
 
       return result;
     }
@@ -33,7 +33,6 @@ export class AuthService implements IAuthUsecases {
     const payload: IJwtPayloadInterface = { username: user.username, sub: user.id };
 
     return {
-      accessToken: this.jwtService.sign(payload),
       refreshToken: this.jwtService.sign(payload),
     };
   }

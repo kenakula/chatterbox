@@ -27,7 +27,6 @@ export class UsersService implements IUserUsecases<TUserDocument> {
 
     const newUser = await this.userModel.create(userDto);
     newUser.password = await this.hashingService.toHashed(userDto.password);
-    newUser.passwordConfirm = '';
     await newUser.save();
 
     return newUser;

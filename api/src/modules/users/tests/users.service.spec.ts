@@ -8,7 +8,7 @@ import { connect, Connection, Model } from 'mongoose';
 import { User, UserSchema } from '../entities';
 import { UsersService } from '../users.service';
 
-import { userStub } from './user.stub';
+import { createUserStub, userStub } from './user.stub';
 
 jest.mock('@common/helpers/hashing.service');
 
@@ -68,34 +68,34 @@ describe('UsersService', () => {
 
   describe('create user', () => {
     it('should create user', async () => {
-      await service.createUser(userStub());
+      await service.createUser(createUserStub());
 
       const users = await userModel.find();
       expect(users).toHaveLength(1);
     });
 
     it('should call hashing service', async () => {
-      await service.createUser(userStub());
+      await service.createUser(createUserStub());
 
       expect(hashingService.toHashed).toHaveBeenCalledTimes(1);
     });
 
     it('should call hashing service with correct arg', async () => {
-      const stub = userStub();
+      const stub = createUserStub();
       await service.createUser(stub);
 
       expect(hashingService.toHashed).toHaveBeenCalledWith(stub.password);
     });
 
     it('should create user with defined username', async () => {
-      await service.createUser(userStub({ username: 'testUserName123' }));
+      await service.createUser(createUserStub({ username: 'testUserName123' }));
 
       const user = await userModel.find({ username: 'testUserName123' });
       expect(user).toBeDefined();
     });
 
     it('should throw error when creating user with same username', async () => {
-      const stub = userStub({ username: 'testUserName' });
+      const stub = createUserStub({ username: 'testUserName' });
       await userModel.create(stub);
 
       try {

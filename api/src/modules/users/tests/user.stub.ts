@@ -12,7 +12,6 @@ export const userStub = (options?: IStubOptions): UserModel => {
   const user = new UserModel();
   user.username = options?.username ?? 'testUserName';
   user.password = options?.password ?? '123123';
-  user.passwordConfirm = options?.passwordConfirm ?? '123123';
 
   return user;
 };

@@ -6,6 +6,4 @@ export class UserModel {
   isActive: boolean;
 
   password: string;
-
-  passwordConfirm: string;
 }
