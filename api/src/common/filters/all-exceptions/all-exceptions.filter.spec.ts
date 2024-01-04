@@ -53,7 +53,7 @@ describe('ExceptionsFilter', () => {
     const result = await request(app.getHttpServer()).get('/unknown-route').send();
     const data = JSON.parse(result.text);
 
-    expect(data.message).toBe('NotFoundException: Cannot GET /unknown-route');
+    expect(data.message).toBe('Cannot GET /unknown-route');
   });
 
   it('should call logger', async () => {

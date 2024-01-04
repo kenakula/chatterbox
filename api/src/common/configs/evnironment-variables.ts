@@ -43,4 +43,17 @@ export class EnvironmentVariables {
   @IsString()
   @MinLength(1)
   MONGO_DATABASE: string;
+
+  @IsDefined()
+  @IsString()
+  @MinLength(32)
+  JWT_SECRET: string;
+
+  @IsDefined()
+  @IsString()
+  JWT_EXPIRES: string;
+
+  @IsDefined()
+  @IsString()
+  JWT_COOKIE_NAME: string;
 }

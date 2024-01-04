@@ -9,6 +9,8 @@ export interface IUserUsecases<T extends Document> {
 
   findById(id: string): Promise<T>;
 
+  findByUsername(username: string): Promise<T>;
+
   update(id: string, data: UpdateUserDto): Promise<T>;
 
   delete(id: string): Promise<void>;

@@ -1,6 +1,7 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
+import { HashingService } from '@common/helpers';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model } from 'mongoose';
 
@@ -9,11 +10,14 @@ import { UsersService } from '../users.service';
 
 import { userStub } from './user.stub';
 
-describe('UsersRepository', () => {
+jest.mock('@common/helpers/hashing.service');
+
+describe('UsersService', () => {
   let mongod: MongoMemoryServer;
   let mongoConnection: Connection;
   let userModel: Model<User>;
   let service: UsersService;
+  let hashingService: HashingService;
 
   afterEach(async () => {
     if (mongoConnection) {
@@ -38,6 +42,7 @@ describe('UsersRepository', () => {
     const module = await Test.createTestingModule({
       providers: [
         UsersService,
+        HashingService,
         {
           provide: getModelToken(User.name),
           useValue: userModel,
@@ -46,6 +51,7 @@ describe('UsersRepository', () => {
     }).compile();
 
     service = module.get<UsersService>(UsersService);
+    hashingService = module.get<HashingService>(HashingService);
     jest.clearAllMocks();
   });
 
@@ -66,6 +72,19 @@ describe('UsersRepository', () => {
 
       const users = await userModel.find();
       expect(users).toHaveLength(1);
+    });
+
+    it('should call hashing service', async () => {
+      await service.createUser(userStub());
+
+      expect(hashingService.toHashed).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call hashing service with correct arg', async () => {
+      const stub = userStub();
+      await service.createUser(stub);
+
+      expect(hashingService.toHashed).toHaveBeenCalledWith(stub.password);
     });
 
     it('should create user with defined username', async () => {
@@ -155,6 +174,35 @@ describe('UsersRepository', () => {
 
       try {
         await service.findById(user.id);
+        fail('test should throw error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+
+  describe('find user by username', () => {
+    beforeEach(async () => {
+      await createUsers(10);
+    });
+
+    it('should find user by username', async () => {
+      const result = await service.findByUsername('testUser-0');
+
+      expect(result).toBeTruthy();
+    });
+
+    it('should find user by username with defined username', async () => {
+      const result = await service.findByUsername('testUser-4');
+
+      expect(result.username).toBe('testUser-4');
+    });
+
+    it('should throw error when did not find user', async () => {
+      const user = await userModel.findOneAndDelete({ username: 'testUser-4' });
+
+      try {
+        await service.findByUsername(user.username);
         fail('test should throw error');
       } catch (err) {
         expect(err).toBeInstanceOf(NotFoundException);

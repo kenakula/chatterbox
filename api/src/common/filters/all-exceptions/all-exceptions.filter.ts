@@ -20,16 +20,30 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    const message = exception instanceof HttpException
+      ? this.getExceptionResponseMessage(exception.getResponse())
+      : exception.toString();
+
     const responseBody: IExceptionResponse = {
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
       method: request.method,
-      message: exception.toString(),
+      message,
     };
 
     this.logger.error(exception.toString(), 'AllExceptionsFilter');
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
+  }
+
+  private getExceptionResponseMessage(response: object | string): string {
+    if (typeof response === 'object' && 'message' in response) {
+      const message = response.message as string[];
+
+      return message.toString();
+    }
+
+    return response.toString();
   }
 }
