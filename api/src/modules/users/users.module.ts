@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HashingService, userPresaveFactory } from '@common/helpers';
+import { HashingService } from '@common/helpers';
 
-import { User } from './entities';
+import { User, UserSchema } from './entities';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeatureAsync([
+    MongooseModule.forFeature([
       {
         name: User.name,
-        useFactory: userPresaveFactory,
+        schema: UserSchema,
       },
     ]),
   ],
