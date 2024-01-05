@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.0.16",
     "@hookform/resolvers": "^3.3.2",
     "axios": "^1.6.2",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.0",
@@ -33,6 +35,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "sass": "^1.69.7",
     "simple-zustand-devtools": "^1.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",

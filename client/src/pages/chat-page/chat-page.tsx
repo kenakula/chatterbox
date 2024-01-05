@@ -1,7 +1,6 @@
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useCountLines } from '@shared/hooks';
 import { useStore } from '@store/store';
 
 export const ChatPage = (): ReactElement => {
@@ -12,8 +11,6 @@ export const ChatPage = (): ReactElement => {
   const { user } = useStore();
 
   const [message, setMessage] = useState('');
-
-  const { lines } = useCountLines({ inputRef, value: message, maxLines: 3 });
 
   const onMessageChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     setMessage(evt.target.value);

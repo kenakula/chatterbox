@@ -2,8 +2,10 @@ import { MouseEvent, ReactElement, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useMedia } from 'react-use';
 
-import { Header, Sidebar } from '@pages/layout/components';
+import { Header } from '@pages/layout/components';
 import { Media } from '@shared/constants';
+
+import style from './style.module.scss';
 
 export const Layout = (): ReactElement => {
   const [menuCollapsed, setMenuCollapsed] = useState(true);
@@ -14,20 +16,12 @@ export const Layout = (): ReactElement => {
     setMenuCollapsed(prev => !prev);
   };
 
-  const handleCollapsed = (state: boolean): void => {
-
-    setMenuCollapsed(state);
-  };
-
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <Sidebar collapsed={menuCollapsed} fix={isLaptop} setCollapsed={handleCollapsed}/>
-      <div>
-        <Header hideMenuToggle={isLaptop} collapsed={menuCollapsed} toggleCollapsed={handleMenuToggleClick}/>
-        <div>
-          <Outlet/>
-        </div>
-      </div>
+    <div className={style.layout}>
+      <Header hideMenuToggle={isLaptop} collapsed={menuCollapsed} toggleCollapsed={handleMenuToggleClick}/>
+      <main>
+        <Outlet/>
+      </main>
     </div>
   );
 };

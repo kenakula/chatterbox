@@ -1,0 +1,27 @@
+:root {
+  --color-black: #070707;
+  --color-white: #f3f3f3;
+
+  --color-primary: #176B87;
+  --color-blue: #86B6F6;
+  --color-blue-light: #B4D4FF;
+  --color-ghost: #EEF5FF;
+
+  --bg-primary: var(--color-white);
+  --bg-ghost: var(--color-ghost);
+
+  --text-primary: var(--color-black);
+  --text-secondary: #1d1d1d;
+
+
+  --font-size-default: 16px;
+}
+
+body {
+  font-family: 'Inter Variable', 'Arial', sans-serif;
+}
+
+#root {
+  display: flex;
+  min-height: 100dvh;
+}

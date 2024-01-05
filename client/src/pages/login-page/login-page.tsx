@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
 import { authApi } from '@app/api';
 import { Paths } from '@app/router';

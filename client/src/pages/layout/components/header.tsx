@@ -6,7 +6,7 @@ interface IProps {
   hideMenuToggle: boolean;
 }
 
-export const Header = ({ collapsed, toggleCollapsed, hideMenuToggle }: IProps): ReactElement => {
+export const Header = ({ toggleCollapsed, hideMenuToggle }: IProps): ReactElement => {
 
   return (
     <header>

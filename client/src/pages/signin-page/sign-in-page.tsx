@@ -7,11 +7,12 @@ import { Paths } from '@app/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useStore } from '@store/store';
 
-import { SigninForm } from './components';
+import { SignInForm } from './components';
 import { signinSchema } from './constants';
 import { ISignInForm } from './interfaces';
+import style from './styles.module.scss';
 
-export const SigninPage = (): ReactElement => {
+export const SignInPage = (): ReactElement => {
   const { setUser, setAuthState } = useStore();
 
   const { control, reset, handleSubmit } = useForm<ISignInForm>({
@@ -35,9 +36,9 @@ export const SigninPage = (): ReactElement => {
   };
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      <SigninForm onSubmit={handleSubmit(onSubmit)} control={control}/>
+    <div className={style.page}>
+      <h2 className={style.title}>Sign In</h2>
+      <SignInForm onSubmit={handleSubmit(onSubmit)} control={control}/>
       <Link to={Paths.LOGIN_PAGE}>
         <button>login</button>
       </Link>

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { ChatPage, Layout, LoginPage, MainPage, SigninPage } from '@app/pages';
+import { ChatPage, Layout, LoginPage, MainPage, SignInPage } from '@app/pages';
 import { AuthRoute } from '@app/router/auth-route.router';
 
 import { Paths } from './constants.router';
@@ -14,15 +14,15 @@ export const AppRouter = (): ReactElement => {
 
   return (
     <Routes>
-      <Route element={<ProtectedRoute />}>
-        <Route element={<Layout />}>
-          <Route path={Paths.MAIN_PAGE} index element={<MainPage />} />
-          <Route path={Paths.CHAT_PAGE} index element={<ChatPage />} />
+      <Route element={<ProtectedRoute/>}>
+        <Route element={<Layout/>}>
+          <Route path={Paths.MAIN_PAGE} index element={<MainPage/>}/>
+          <Route path={Paths.CHAT_PAGE} index element={<ChatPage/>}/>
         </Route>
       </Route>
-      <Route element={<AuthRoute />}>
-        <Route path={Paths.LOGIN_PAGE} element={<LoginPage />} />
-        <Route path={Paths.SIGNIN_PAGE} element={<SigninPage />} />
+      <Route element={<AuthRoute/>}>
+        <Route path={Paths.LOGIN_PAGE} element={<LoginPage/>}/>
+        <Route path={Paths.SIGNIN_PAGE} element={<SignInPage/>}/>
       </Route>
     </Routes>
   );

@@ -8,7 +8,7 @@ interface IProps {
   control: Control<ISignInForm>;
 }
 
-export const SigninForm = ({ control, onSubmit }: IProps): ReactElement => {
+export const SignInForm = ({ onSubmit }: IProps): ReactElement => {
 
   return (
     <div onSubmit={onSubmit}>

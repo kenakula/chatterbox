@@ -8,7 +8,7 @@ interface IProps {
   control: Control<ILoginForm>;
 }
 
-export const LoginForm = ({ onSubmit, control }: IProps): ReactElement => {
+export const LoginForm = ({ onSubmit }: IProps): ReactElement => {
 
   return (
     <form onSubmit={onSubmit}>
