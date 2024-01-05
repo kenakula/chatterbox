@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 
@@ -10,16 +10,18 @@ import style from './sidebar.module.scss';
 
 interface IProps {
   rooms: RoomModel[];
+  inputValue: string;
+  onInputChange: (value: string) => void;
 }
 
-export const Sidebar = ({ rooms }: IProps): ReactElement => {
-  const [searchValue, setSearchValue] = useState('');
+export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElement => {
+
   const { isSidebarMenuOpened, setSidebarMenuState } = useStore();
 
   const isLaptop = useMedia(Media.LAPTOP);
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(e.currentTarget.value);
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    onInputChange(event.target.value);
   };
 
   const overlayClickHandler = (): void => {
@@ -36,8 +38,8 @@ export const Sidebar = ({ rooms }: IProps): ReactElement => {
       >
         <div className={style.sidebarHeader}>
           <input
-            onChange={onInputChange}
-            value={searchValue}
+            onChange={onChange}
+            value={inputValue}
             placeholder="Search"
           />
         </div>

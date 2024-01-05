@@ -8,12 +8,12 @@ import { useGetRooms } from './hooks';
 import style from './layout.module.scss';
 
 export const Layout = (): ReactElement => {
-  const { data } = useGetRooms();
+  const { data, inputValue, onInputChange } = useGetRooms();
 
   return (
     <div className={classNames(style.layout, 'grid-layout')}>
       <Header/>
-      <Sidebar rooms={data}/>
+      <Sidebar rooms={data} inputValue={inputValue} onInputChange={onInputChange}/>
       <main className={classNames('full-width', style.mainContent)}>
         <Outlet/>
       </main>

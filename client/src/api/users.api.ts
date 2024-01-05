@@ -10,7 +10,7 @@ class UsersApi {
   constructor(private readonly instance: AxiosInstance) {}
 
   public async getUsers(filter?: Pick<UserModel, 'username'>): Promise<IApiResponse<UserModel[]>> {
-    return this.instance.get(`${this.path}`, {
+    return this.instance.get(this.path, {
       params: {
         username: filter?.username,
       },

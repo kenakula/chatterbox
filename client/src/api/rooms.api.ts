@@ -9,8 +9,13 @@ class RoomsApi {
 
   constructor(private readonly instance: AxiosInstance) {}
 
-  public async getRooms(): Promise<IApiResponse<RoomModel[]>> {
-    return this.instance.get(this.path);
+  public async getRooms(filter: Pick<RoomModel, 'name'>): Promise<IApiResponse<RoomModel[]>> {
+    const paramEntries = Object.entries(filter).filter(([, value]) => Boolean(value));
+    const params = Object.fromEntries(paramEntries);
+
+    return this.instance.get(this.path, {
+      params,
+    });
   }
 }
 

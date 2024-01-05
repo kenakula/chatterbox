@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { CreateRoomDto, RoomPresenterDto, UpdateRoomDto } from './dto';
@@ -18,8 +18,8 @@ export class RoomsController {
   }
 
   @Get()
-  async findAll() {
-    const rooms = await this.roomsService.findAll();
+  async findAll(@Query('name') name?: string) {
+    const rooms = await this.roomsService.findAll({ name });
 
     return rooms.map(room => new RoomPresenterDto(room));
   }

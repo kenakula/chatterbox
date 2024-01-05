@@ -6,6 +6,8 @@ import { CreateRoomDto, SaveMessageDto, UpdateRoomDto } from '@modules/rooms/dto
 import { Room, TRoomDocument } from '@modules/rooms/entities';
 import { IRoomsUsecases } from '@modules/rooms/usecases';
 
+import { IRoomsFilter } from './interfaces';
+
 @Injectable()
 export class RoomsService implements IRoomsUsecases<TRoomDocument> {
   constructor(@InjectModel(Room.name) private readonly roomModel: Model<Room>) {}
@@ -22,8 +24,10 @@ export class RoomsService implements IRoomsUsecases<TRoomDocument> {
     }
   }
 
-  async findAll(): Promise<TRoomDocument[]> {
-    return this.roomModel.find()
+  async findAll(filter: IRoomsFilter): Promise<TRoomDocument[]> {
+    const regex = new RegExp(filter?.name ?? '', 'i');
+
+    return this.roomModel.find({ name: { '$regex': regex } })
       .populate({ path: 'creator' })
       .populate({ path: 'users' });
   }

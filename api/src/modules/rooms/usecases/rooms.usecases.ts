@@ -1,12 +1,14 @@
 import { Document } from 'mongoose';
 
 import { MessageModel } from '@app/core/models';
-import { CreateRoomDto, UpdateRoomDto } from '@modules/rooms/dto';
+
+import { CreateRoomDto, UpdateRoomDto } from '../dto';
+import { IRoomsFilter } from '../interfaces';
 
 export interface IRoomsUsecases<T extends Document> {
   createRoom(data: CreateRoomDto): Promise<T>;
 
-  findAll(): Promise<T[]>;
+  findAll(filter: IRoomsFilter): Promise<T[]>;
 
   findById(id: string): Promise<T>;
 

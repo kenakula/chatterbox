@@ -98,12 +98,19 @@ describe('RoomsService', () => {
     let rooms: TRoomDocument[];
 
     beforeEach(async () => {
-      await createRooms(10);
-      rooms = await service.findAll();
+      await createRooms(21);
     });
 
-    test('should find all rooms', () => {
-      expect(rooms).toHaveLength(10);
+    test('should find all rooms', async () => {
+      rooms = await service.findAll({ name: undefined });
+
+      expect(rooms).toHaveLength(21);
+    });
+
+    test('should find rooms filtered by name', async () => {
+      rooms = await service.findAll({ name: '0' });
+
+      expect(rooms).toHaveLength(3);
     });
   });
 
