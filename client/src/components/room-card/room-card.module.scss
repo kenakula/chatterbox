@@ -1,0 +1,46 @@
+@use "@shared/styles/functions" as f;
+
+.roomCard {
+  display: flex;
+  align-items: center;
+  column-gap: f.size(2);
+  padding: f.size(1) f.size(2);
+  text-decoration: none;
+  color: f.color(black);
+  border-radius: var(--radius-default);
+  transition: background var(--transition-default);
+
+  &:hover {
+    background-color: f.color(black, 0.05);
+  }
+}
+
+.roomCard.active {
+  background-color: f.color(ghost);
+  pointer-events: none;
+}
+
+.roomCardDescription {
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(1);
+
+  p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  span {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+

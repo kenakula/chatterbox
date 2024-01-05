@@ -1,7 +1,9 @@
 import { ChangeEvent, ReactElement } from 'react';
+import Scrollbars from 'react-custom-scrollbars-2';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 
+import { RoomCard } from '@app/components';
 import { RoomModel } from '@core/models';
 import { Media } from '@shared/constants';
 import { useStore } from '@store/store';
@@ -28,6 +30,10 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
     setSidebarMenuState(false);
   };
 
+  const handleRoomClick = (): void => {
+    setSidebarMenuState(false);
+  };
+
   return (
     <>
       <nav
@@ -43,11 +49,15 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
             placeholder="Search"
           />
         </div>
-        <ul>
-          {rooms.map(room => (
-            <li key={room.id}>{room.name}</li>
-          ))}
-        </ul>
+        <Scrollbars autoHide>
+          <ul className={style.sidebarList}>
+            {rooms.map(room => (
+              <li key={room.id}>
+                <RoomCard data={room} onClick={handleRoomClick}/>
+              </li>
+            ))}
+          </ul>
+        </Scrollbars>
       </nav>
       {isSidebarMenuOpened && !isLaptop && <div
         onClick={overlayClickHandler}

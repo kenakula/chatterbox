@@ -17,7 +17,7 @@ export const AppRouter = (): ReactElement => {
       <Route element={<ProtectedRoute/>}>
         <Route element={<Layout/>}>
           <Route path={Paths.MAIN_PAGE} index element={<MainPage/>}/>
-          <Route path={Paths.CHAT_PAGE} index element={<ChatPage/>}/>
+          <Route path={Paths.ROOM_PAGE} index element={<ChatPage/>}/>
         </Route>
       </Route>
       <Route element={<AuthRoute/>}>
