@@ -1,6 +1,10 @@
+@use '@shared/styles/variables' as var;
+
+@import '@shared/styles/global/grid-layout';
+
 :root {
-  --color-black: #070707;
-  --color-white: #f3f3f3;
+  --color-black: #737373;
+  --color-white: #fefefe;
 
   --color-primary: #176B87;
   --color-blue: #86B6F6;
@@ -15,13 +19,45 @@
 
 
   --font-size-default: 16px;
+
+  --size-step: 8px;
+
+  --radius-default: 8px;
+
+  --media-mobile: var.$media-mobile;
+  --media-tablet: var.$media-tablet;
+  --media-laptop: var.$media-laptop;
+  --media-desktop-sm: var.$media-desktop-sm;
+  --media-desktop-md: var.$media-desktop-md;
+  --media-desktop-lg: var.$media-desktop-lg;
+
+  --z-sidebar: 1000;
+
+  --shadow-default: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+  0 2px 2px hsl(0deg 0% 0% / 0.075),
+  0 4px 4px hsl(0deg 0% 0% / 0.075),
+  0 8px 8px hsl(0deg 0% 0% / 0.075),
+  0 16px 16px hsl(0deg 0% 0% / 0.075)
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
+  max-height: 100dvh;
   font-family: 'Inter Variable', 'Arial', sans-serif;
+  overflow: hidden;
+  background-color: var(--bg-primary);
 }
 
 #root {
   display: flex;
-  min-height: 100dvh;
+  min-height: 100vh;
 }

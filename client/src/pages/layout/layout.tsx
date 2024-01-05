@@ -1,25 +1,18 @@
-import { MouseEvent, ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useMedia } from 'react-use';
+import classNames from 'classnames';
 
-import { Header } from '@pages/layout/components';
-import { Media } from '@shared/constants';
+import { Header, Sidebar } from '@pages/layout/components';
 
-import style from './style.module.scss';
+import style from './layout.module.scss';
 
 export const Layout = (): ReactElement => {
-  const [menuCollapsed, setMenuCollapsed] = useState(true);
-  const isLaptop = useMedia(Media.LAPTOP);
-
-  const handleMenuToggleClick = (e: MouseEvent): void => {
-    e.preventDefault();
-    setMenuCollapsed(prev => !prev);
-  };
 
   return (
-    <div className={style.layout}>
-      <Header hideMenuToggle={isLaptop} collapsed={menuCollapsed} toggleCollapsed={handleMenuToggleClick}/>
-      <main>
+    <div className={classNames(style.layout, 'grid-layout')}>
+      <Sidebar/>
+      <Header/>
+      <main className="full-width">
         <Outlet/>
       </main>
     </div>

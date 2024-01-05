@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { authApi } from '@app/api';
 import { Paths } from '@app/router';
@@ -10,6 +11,7 @@ import { useStore } from '@store/store';
 
 import { loginSchema } from './constants';
 import { ILoginForm } from './interfaces';
+import style from './login.module.scss';
 
 export const LoginPage = (): ReactElement => {
   const { setUser, setAuthState } = useStore();
@@ -34,12 +36,14 @@ export const LoginPage = (): ReactElement => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <LoginForm control={control} onSubmit={handleSubmit(onSubmit)}/>
-      <Link to={Paths.SIGNIN_PAGE}>
-        <button type="button">register</button>
-      </Link>
-    </div>
+    <main className={classNames(style.loginPage, 'grid-layout')}>
+      <div className={style.loginInner}>
+        <h1>Login Page</h1>
+        <LoginForm control={control} onSubmit={handleSubmit(onSubmit)}/>
+        <Link to={Paths.SIGNIN_PAGE}>
+          register
+        </Link>
+      </div>
+    </main>
   );
 };

@@ -4,16 +4,24 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'airbnb-typescript',
     'plugin:react-hooks/recommended',
+    'plugin:react/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'simple-import-sort'],
+  parserOptions: {
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin', 'react-refresh', 'simple-import-sort', 'import'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       {allowConstantExport: true},
     ],
+    'react/react-in-jsx-scope': 'off',
     'simple-import-sort/imports': [
       'error',
       {

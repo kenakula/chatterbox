@@ -1,3 +1,50 @@
-@mixin bg() {
-  background-color: #7f7f7f;
+@use './variables' as *;
+
+@mixin buttonReset() {
+  display: block;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@mixin listReset() {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin media-mobile {
+  @media (min-width: $media-mobile) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media (min-width: $media-tablet) {
+    @content;
+  }
+}
+
+@mixin media-laptop {
+  @media (min-width: $media-laptop) {
+    @content;
+  }
+}
+
+@mixin media-desktop-sm {
+  @media (min-width: $media-desktop-sm) {
+    @content;
+  }
+}
+
+@mixin media-desktop-md {
+  @media (min-width: $media-desktop-md) {
+    @content;
+  }
+}
+
+@mixin media-desktop-lg {
+  @media (min-width: $media-desktop-lg) {
+    @content;
+  }
 }

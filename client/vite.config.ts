@@ -4,7 +4,6 @@ import svgr from 'vite-plugin-svgr';
 
 import react from '@vitejs/plugin-react-swc';
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
   envDir: '../',
@@ -19,6 +18,7 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@store': path.resolve(__dirname, './src/store'),
       '@tests': path.resolve(__dirname, './src/tests'),
+      '@core': path.resolve(__dirname, './src/core'),
     },
   },
   server: {

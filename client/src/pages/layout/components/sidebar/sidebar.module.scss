@@ -1,0 +1,42 @@
+@use "@shared/styles/functions" as f;
+
+.sidebar {
+  z-index: var(--z-sidebar);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(2);
+  padding: f.size(3) 0;
+  max-height: 100dvh;
+  width: min(70vw, 400px);
+  height: 100%;
+  background-color: var(--bg-primary);
+  box-shadow: none;
+  transform: translateX(-100%);
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar.opened {
+  box-shadow: var(--shadow-default);
+  transform: translateX(0);
+}
+
+.sidebarOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-black);
+  opacity: 0.2;
+}
+
+.sidebarHeader {
+  padding: 0 f.size(2);
+
+  input {
+    width: 100%;
+  }
+}

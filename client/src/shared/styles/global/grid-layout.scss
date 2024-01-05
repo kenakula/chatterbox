@@ -1,0 +1,43 @@
+.grid-layout {
+  --grid-padding: 1rem;
+  --content-max-width: 900px;
+  --breakout-max-width: 1200px;
+
+  --breakout-size: calc(
+          (var(--breakout-max-width) - var(--content-max-width)) / 2
+  );
+
+  display: grid;
+  grid-template-columns:
+    [full-width-start] minmax(var(--grid-padding), 1fr)
+    [breakout-start] minmax(0, var(--breakout-size))
+    [content-start] min(
+      100% - (var(--grid-padding) * 2),
+      var(--content-max-width)
+    )
+    [content-end]
+    minmax(0, var(--breakout-size)) [breakout-end]
+    minmax(var(--grid-padding), 1fr) [full-width-end];
+}
+
+.grid-layout > :not(.breakout, .full-width),
+.full-width > :not(.breakout, .full-width) {
+  grid-column: content;
+}
+
+.grid-layout > .breakout {
+  grid-column: breakout;
+}
+
+.grid-layout > .full-width {
+  grid-column: full-width;
+
+  display: grid;
+  grid-template-columns: inherit;
+}
+
+img.full-width {
+  width: 100%;
+  max-height: 45vh;
+  object-fit: cover;
+}

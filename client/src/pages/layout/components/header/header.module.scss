@@ -1,0 +1,26 @@
+@use "@shared/styles/functions" as f;
+@use "@shared/styles/mixins" as mixins;
+
+.header {
+  min-height: 68px;
+  grid-column: 1 / 4;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+}
+
+.toggleButton {
+  @include mixins.buttonReset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+
+  @include mixins.media-tablet {
+    display: none;
+  }
+}

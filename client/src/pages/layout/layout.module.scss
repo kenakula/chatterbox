@@ -1,0 +1,6 @@
+@use "@shared/styles/functions" as f;
+
+.layout {
+  width: 100%;
+  grid-auto-rows: min-content 1fr;
+}

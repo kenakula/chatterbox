@@ -1,0 +1,19 @@
+@use "@shared/styles/functions" as f;
+
+.signUpPage {
+  padding-top: 25dvh;
+  width: 100%;
+}
+
+.signUpInner {
+  margin: 0 auto;
+  width: min(100%, 500px);
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(2);
+  width: 100%;
+  margin-bottom: f.size(3);
+}

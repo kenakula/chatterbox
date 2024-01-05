@@ -1,0 +1,19 @@
+@use "@shared/styles/functions" as f;
+
+.loginPage {
+  padding-top: 25dvh;
+  width: 100%;
+}
+
+.loginInner {
+  margin: 0 auto;
+  width: min(100%, 500px);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(2);
+  width: 100%;
+  margin-bottom: f.size(3);
+}

@@ -1,9 +1,0 @@
-@use "@shared/styles/mixins" as mixins;
-
-.page {
-  @include mixins.bg;
-}
-
-.title {
-  color: var(--bg-primary);
-}

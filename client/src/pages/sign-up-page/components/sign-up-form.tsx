@@ -2,23 +2,24 @@ import { BaseSyntheticEvent, ReactElement } from 'react';
 import { Control } from 'react-hook-form';
 
 import { Input } from '@app/components';
+import { ISignUpForm } from '@pages/sign-up-page/interfaces';
 
-import { ILoginForm } from '../interfaces';
-import style from '../login.module.scss';
+import style from '../sign-up.module.scss';
 
 interface IProps {
   onSubmit: (e?: BaseSyntheticEvent | undefined) => Promise<void>;
-  control: Control<ILoginForm>;
+  control: Control<ISignUpForm>;
 }
 
-export const LoginForm = ({ onSubmit, control }: IProps): ReactElement => {
+export const SignUpForm = ({ onSubmit, control }: IProps): ReactElement => {
 
   return (
-    <form onSubmit={onSubmit} className={style.loginForm}>
+    <form className={style.signUpForm} onSubmit={onSubmit}>
       <Input control={control} name="username" id="username"/>
       <Input control={control} name="password" id="password" type="password"/>
+      <Input control={control} name="passwordConfirm" id="passwordConfirm" type="password"/>
 
-      <button type="submit">LOGIN</button>
+      <button>SIGN UP</button>
     </form>
   );
 };

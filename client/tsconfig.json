@@ -25,6 +25,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@app/*": [
@@ -47,6 +48,9 @@
       ],
       "@tests/*": [
         "src/tests/*"
+      ],
+      "@core/*": [
+        "src/core/*"
       ]
     }
   },

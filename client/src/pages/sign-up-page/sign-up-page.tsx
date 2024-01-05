@@ -1,21 +1,22 @@
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { authApi } from '@app/api';
 import { Paths } from '@app/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useStore } from '@store/store';
 
-import { SignInForm } from './components';
+import { SignUpForm } from './components';
 import { signinSchema } from './constants';
-import { ISignInForm } from './interfaces';
-import style from './styles.module.scss';
+import { ISignUpForm } from './interfaces';
+import style from './sign-up.module.scss';
 
-export const SignInPage = (): ReactElement => {
+export const SignUpPage = (): ReactElement => {
   const { setUser, setAuthState } = useStore();
 
-  const { control, reset, handleSubmit } = useForm<ISignInForm>({
+  const { control, reset, handleSubmit } = useForm<ISignUpForm>({
     defaultValues: {
       username: '',
       password: '',
@@ -24,7 +25,7 @@ export const SignInPage = (): ReactElement => {
     resolver: yupResolver(signinSchema),
   });
 
-  const onSubmit = async (data: ISignInForm): Promise<void> => {
+  const onSubmit = async (data: ISignUpForm): Promise<void> => {
     try {
       const { data: { user } } = await authApi.signin(data);
       setUser(user);
@@ -36,12 +37,14 @@ export const SignInPage = (): ReactElement => {
   };
 
   return (
-    <div className={style.page}>
-      <h2 className={style.title}>Sign In</h2>
-      <SignInForm onSubmit={handleSubmit(onSubmit)} control={control}/>
-      <Link to={Paths.LOGIN_PAGE}>
-        <button>login</button>
-      </Link>
+    <div className={classNames(style.signUpPage, 'grid-layout')}>
+      <div className={style.signUpInner}>
+        <h1>Sign Up</h1>
+        <SignUpForm onSubmit={handleSubmit(onSubmit)} control={control}/>
+        <Link to={Paths.LOGIN_PAGE}>
+          login
+        </Link>
+      </div>
     </div>
   );
 };

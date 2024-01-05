@@ -14,6 +14,7 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@store': path.resolve(__dirname, './src/store'),
       '@tests': path.resolve(__dirname, './src/tests'),
+      '@core': path.resolve(__dirname, './src/core'),
     },
     globals: true,
     environment: 'jsdom',
