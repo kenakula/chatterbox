@@ -7,7 +7,6 @@ import { authApi } from '@app/api';
 import { Paths } from '@app/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm } from '@pages/login-page/components/login-form';
-import * as Styled from '@shared/styled/auth-page.styled';
 import { useStore } from '@store/store';
 
 import { loginSchema } from './constants';
@@ -36,12 +35,12 @@ export const LoginPage = (): ReactElement => {
   };
 
   return (
-    <Styled.AuthPageWrapper>
-      <Styled.AuthPageTitle>Login</Styled.AuthPageTitle>
-      <LoginForm control={control} onSubmit={handleSubmit(onSubmit)} />
+    <div>
+      <h2>Login</h2>
+      <LoginForm control={control} onSubmit={handleSubmit(onSubmit)}/>
       <Link to={Paths.SIGNIN_PAGE}>
-        <Button type="link">register</Button>
+        <button type="button">register</button>
       </Link>
-    </Styled.AuthPageWrapper>
+    </div>
   );
 };

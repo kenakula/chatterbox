@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { usersApi } from '@app/api/users.api';
+import { authApi } from '@app/api';
 import { useStore } from '@store/store';
 
 export const usePersistAuth = (): void => {
@@ -10,7 +10,7 @@ export const usePersistAuth = (): void => {
   const getAuthedUserInfo = useCallback(async (): Promise<void> => {
     try {
       isFetching.current = true;
-      const { data } = await usersApi.getMe();
+      const { data } = await authApi.getMe();
       setUser(data);
       setAuthState(true);
     } catch (err) {

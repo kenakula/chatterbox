@@ -12,13 +12,9 @@ class UsersApi {
   public async getUsers(filter?: IUserFilter): Promise<IApiResponse<IUser[]>> {
     return this.instance.get(`${this.path}`, {
       params: {
-        username: filter?.username
-      }
+        username: filter?.username,
+      },
     });
-  }
-
-  public async getMe(): Promise<IApiResponse<IUser>> {
-    return this.instance.get<void, IApiResponse<IUser>>(`${this.path}/me`);
   }
 }
 

@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 
 import { LoginDto, SignInDto } from '@shared/dtos';
-import { IApiResponse, ILoginResponse, ILogoutResponse, ISignInResponse } from '@shared/interfaces';
+import { IApiResponse, ILoginResponse, ILogoutResponse, ISignInResponse, IUser } from '@shared/interfaces';
 
 import { axiosInstance } from './axios.api';
 
@@ -21,6 +21,10 @@ class AuthApi {
 
   public async logout(): Promise<ILogoutResponse> {
     return this.instance.post<string, ILogoutResponse, void>(`${this.path}/logout`);
+  }
+
+  public async getMe(): Promise<IApiResponse<IUser>> {
+    return this.instance.get<void, IApiResponse<IUser>>(`${this.path}/me`);
   }
 }
 

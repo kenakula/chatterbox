@@ -1,12 +1,10 @@
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
 import { authApi } from '@app/api';
 import { Paths } from '@app/router';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Styled from '@shared/styled/auth-page.styled';
 import { useStore } from '@store/store';
 
 import { SigninForm } from './components';
@@ -37,12 +35,12 @@ export const SigninPage = (): ReactElement => {
   };
 
   return (
-    <Styled.AuthPageWrapper>
-      <Styled.AuthPageTitle>Sign In</Styled.AuthPageTitle>
-      <SigninForm onSubmit={handleSubmit(onSubmit)} control={control} />
+    <div>
+      <h2>Sign In</h2>
+      <SigninForm onSubmit={handleSubmit(onSubmit)} control={control}/>
       <Link to={Paths.LOGIN_PAGE}>
-        <Button type="link">login</Button>
+        <button>login</button>
       </Link>
-    </Styled.AuthPageWrapper>
+    </div>
   );
 };

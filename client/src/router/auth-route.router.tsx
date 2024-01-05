@@ -7,9 +7,9 @@ import { useStore } from '@store/store';
 export const AuthRoute = (): ReactElement => {
   const { isAuthenticated } = useStore();
 
-  if (isAuthenticated) {
-    return <Navigate to={Paths.MAIN_PAGE}/>;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to={Paths.MAIN_PAGE}/>;
+  // }
 
   return <Outlet/>;
 };

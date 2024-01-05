@@ -1,17 +1,13 @@
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useClickAway, useDebounce, useMedia } from 'react-use';
-import { Menu as AntMenu, Skeleton } from 'antd';
 
 import { useUsers } from '@pages/layout/hooks/use-users';
 import { IMenuInfo } from '@pages/layout/interfaces';
 import { Media } from '@shared/constants';
 import { useStore } from '@store/store';
 
-import * as Styled from '../styles';
-
 const SEARCH_DEBOUNCE_TIMEOUT = 500;
-const SIDEBAR_TABLET_WIDTH = 50;
 
 interface IProps {
   collapsed: boolean;
@@ -58,36 +54,20 @@ export const Sidebar = ({ collapsed, setCollapsed, fix }: IProps): ReactElement 
   if (!user) return null;
 
   return (
-    <Styled.Sidebar
-      collapsed={fix ? false : collapsed}
-      trigger={null}
-      collapsible
-      collapsedWidth={isTablet ? SIDEBAR_TABLET_WIDTH : 0}
-      onCollapse={(collapsed) => setCollapsed(collapsed)}
+    <aside
       ref={sidebarRef}
     >
-      <Styled.MenuContainer>
+      <div>
         {showInput && (
-          <Styled.SearchInput
+          <input
             onChange={onInputChange}
             value={searchValue}
             placeholder="Search"
-            allowClear
-            bordered={false}
           />
         )}
-        <Styled.SidebarDivider />
-        {isFetching ? <Skeleton.Input active size="large" /> : (
-          <AntMenu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={[selected]}
-            items={users}
-          />
-        )}
-        {isError && <span style={{ color: 'tomato' }}>Error</span>}
-      </Styled.MenuContainer>
+        <hr/>
+      </div>
 
-    </Styled.Sidebar>
+    </aside>
   );
 };

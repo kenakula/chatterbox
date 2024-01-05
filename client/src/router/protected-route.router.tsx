@@ -8,9 +8,9 @@ import { useStore } from '@store/store';
 export const ProtectedRoute = (): ReactElement => {
   const { isAuthenticated } = useStore();
 
-  if (!isAuthenticated) {
-    return <Navigate to={Paths.LOGIN_PAGE} state={{ from: historyHelper.location }}/>;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to={Paths.LOGIN_PAGE} state={{ from: historyHelper.location }}/>;
+  // }
 
   return <Outlet/>;
 };

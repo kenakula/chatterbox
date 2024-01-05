@@ -1,25 +1,21 @@
-import { ReactElement } from 'react';
-
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import * as Styled from '@pages/layout/styles';
+import { MouseEvent, ReactElement } from 'react';
 
 interface IProps {
   collapsed: boolean;
-  toggleCollapsed: () => void;
+  toggleCollapsed: (e: MouseEvent) => void;
   hideMenuToggle: boolean;
 }
 
 export const Header = ({ collapsed, toggleCollapsed, hideMenuToggle }: IProps): ReactElement => {
 
   return (
-    <Styled.Header>
+    <header>
       {!hideMenuToggle && (
-        <Styled.MenuButton
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        <button
+          type="button"
           onClick={toggleCollapsed}
-        />
+        >toggle</button>
       )}
-    </Styled.Header>
+    </header>
   );
 };

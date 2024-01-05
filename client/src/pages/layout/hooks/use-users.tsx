@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
 import { usersApi } from '@app/api/users.api';
 
 import { IMenuInfo } from '../interfaces';
-import { convertUsersToMenuItems } from '../utils';
 
 export interface IProps {
   debouncedValue: string;
@@ -34,7 +32,6 @@ export const useUsers = ({ debouncedValue, clickHandler }: IProps): IValue => {
     try {
       setIsFetching(true);
       const { data } = await usersApi.getUsers({ username: debouncedValue });
-      setUsers(convertUsersToMenuItems(data, clickHandler));
     } catch (err) {
       console.error(err);
       setIsError(true);
@@ -50,6 +47,6 @@ export const useUsers = ({ debouncedValue, clickHandler }: IProps): IValue => {
   return {
     users,
     isError,
-    isFetching
+    isFetching,
   };
 };

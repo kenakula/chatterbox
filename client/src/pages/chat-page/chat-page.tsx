@@ -1,19 +1,13 @@
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Flex, Input } from 'antd';
-import { TextAreaRef } from 'antd/es/input/TextArea';
 
-import { PlusSquareOutlined, SendOutlined } from '@ant-design/icons';
 import { useCountLines } from '@shared/hooks';
-import { Page } from '@shared/styled/page.styled';
 import { useStore } from '@store/store';
-
-import * as Styled from './styles';
 
 export const ChatPage = (): ReactElement => {
   const { id: recipientId } = useParams<{ id: string }>();
 
-  const inputRef = useRef<TextAreaRef>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { user } = useStore();
 
@@ -21,7 +15,7 @@ export const ChatPage = (): ReactElement => {
 
   const { lines } = useCountLines({ inputRef, value: message, maxLines: 3 });
 
-  const onMessageChange = (evt: ChangeEvent<HTMLTextAreaElement>): void => {
+  const onMessageChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     setMessage(evt.target.value);
   };
 
@@ -36,21 +30,20 @@ export const ChatPage = (): ReactElement => {
   };
 
   return (
-    <Page>
-      <Styled.ChatWrapper>
-        <Styled.ChatWindow>chat</Styled.ChatWindow>
-        <Flex gap="small" align="flex-end">
-          <Input.TextArea
+    <section>
+      <div>
+        <div>chat</div>
+        <div>
+          <input
             style={{ resize: 'none' }}
-            rows={lines}
             ref={inputRef}
             onChange={onMessageChange}
             value={message}
           />
-          <Styled.ChatButton icon={<PlusSquareOutlined />} type="text" />
-          <Styled.ChatButton icon={<SendOutlined />} onClick={onMessageSend} type="primary" />
-        </Flex>
-      </Styled.ChatWrapper>
-    </Page>
+          <button type="button">x</button>
+          <button onClick={onMessageSend} type="button">P</button>
+        </div>
+      </div>
+    </section>
   );
 };
