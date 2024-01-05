@@ -1,7 +1,5 @@
 .grid-layout {
-  --grid-padding: 1rem;
-  --content-max-width: 900px;
-  --breakout-max-width: 1200px;
+
 
   --breakout-size: calc(
           (var(--breakout-max-width) - var(--content-max-width)) / 2

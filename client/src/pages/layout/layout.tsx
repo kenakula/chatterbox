@@ -4,15 +4,17 @@ import classNames from 'classnames';
 
 import { Header, Sidebar } from '@pages/layout/components';
 
+import { useGetRooms } from './hooks';
 import style from './layout.module.scss';
 
 export const Layout = (): ReactElement => {
+  const { data } = useGetRooms();
 
   return (
     <div className={classNames(style.layout, 'grid-layout')}>
-      <Sidebar/>
       <Header/>
-      <main className="full-width">
+      <Sidebar rooms={data}/>
+      <main className={classNames('full-width', style.mainContent)}>
         <Outlet/>
       </main>
     </div>

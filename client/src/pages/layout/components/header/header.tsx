@@ -23,7 +23,9 @@ export const Header = (): ReactElement => {
           className={style.toggleButton}
           type="button"
           onClick={handleMenuToggleClick}
-        ><FiMenu/></button>
+        >
+          <FiMenu/>
+        </button>
       </div>
     </header>
   );

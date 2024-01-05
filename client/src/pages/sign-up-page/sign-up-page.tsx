@@ -27,7 +27,7 @@ export const SignUpPage = (): ReactElement => {
 
   const onSubmit = async (data: ISignUpForm): Promise<void> => {
     try {
-      const { data: { user } } = await authApi.signin(data);
+      const { data: { user } } = await authApi.signUp(data);
       setUser(user);
       setAuthState(true);
       reset();

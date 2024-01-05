@@ -1,15 +1,24 @@
-@use '@shared/styles/variables' as var;
+@use '@shared/styles/variables' as v;
+@use "@shared/styles/functions" as f;
 
 @import '@shared/styles/global/grid-layout';
 
-:root {
-  --color-black: #737373;
-  --color-white: #fefefe;
+$colors: (
+        "black": #737373,
+        "white": #fefefe,
+        "primary": #176B87,
+        "blue": #86B6F6,
+        "blue-light": #B4D4FF,
+        "ghost": #EEF5FF
+);
 
-  --color-primary: #176B87;
-  --color-blue: #86B6F6;
-  --color-blue-light: #B4D4FF;
-  --color-ghost: #EEF5FF;
+:root {
+  @if $colors {
+    @each $key, $value in $colors {
+      --color-#{$key} : #{$value};
+      --color-#{$key}--rgb: #{f.hexToRGB($value)};
+    }
+  }
 
   --bg-primary: var(--color-white);
   --bg-ghost: var(--color-ghost);
@@ -24,20 +33,28 @@
 
   --radius-default: 8px;
 
-  --media-mobile: var.$media-mobile;
-  --media-tablet: var.$media-tablet;
-  --media-laptop: var.$media-laptop;
-  --media-desktop-sm: var.$media-desktop-sm;
-  --media-desktop-md: var.$media-desktop-md;
-  --media-desktop-lg: var.$media-desktop-lg;
+  --media-mobile: v.$media-mobile;
+  --media-tablet: v.$media-tablet;
+  --media-laptop: v.$media-laptop;
+  --media-desktop-sm: v.$media-desktop-sm;
+  --media-desktop-md: v.$media-desktop-md;
+  --media-desktop-lg: v.$media-desktop-lg;
+
+  --grid-padding: 1rem;
+  --content-max-width: 1280px;
+  --breakout-max-width: 1440px;
 
   --z-sidebar: 1000;
+
+  --transition-default: 0.2s cubic-bezier(.83, .21, .68, .73);
 
   --shadow-default: 0 1px 1px hsl(0deg 0% 0% / 0.075),
   0 2px 2px hsl(0deg 0% 0% / 0.075),
   0 4px 4px hsl(0deg 0% 0% / 0.075),
   0 8px 8px hsl(0deg 0% 0% / 0.075),
-  0 16px 16px hsl(0deg 0% 0% / 0.075)
+  0 16px 16px hsl(0deg 0% 0% / 0.075);
+
+  --shadow-menu: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 html {

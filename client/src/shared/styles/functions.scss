@@ -1,3 +1,15 @@
 @function size($value: 1) {
   @return calc(var(--size-step) * $value);
 }
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@function color($name, $opacity: false) {
+  @if $opacity {
+    @return rgba(var(--color-#{$name}--rgb), $opacity);
+  } @else {
+    @return var(--color-#{$name});
+  }
+}

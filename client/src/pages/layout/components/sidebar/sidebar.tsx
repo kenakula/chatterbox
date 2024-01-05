@@ -2,12 +2,17 @@ import { ChangeEvent, ReactElement, useState } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 
+import { RoomModel } from '@core/models';
 import { Media } from '@shared/constants';
 import { useStore } from '@store/store';
 
 import style from './sidebar.module.scss';
 
-export const Sidebar = (): ReactElement => {
+interface IProps {
+  rooms: RoomModel[];
+}
+
+export const Sidebar = ({ rooms }: IProps): ReactElement => {
   const [searchValue, setSearchValue] = useState('');
   const { isSidebarMenuOpened, setSidebarMenuState } = useStore();
 
@@ -23,7 +28,7 @@ export const Sidebar = (): ReactElement => {
 
   return (
     <>
-      <div
+      <nav
         className={classNames(
           style.sidebar,
           { [style.opened]: isSidebarMenuOpened && !isLaptop },
@@ -36,7 +41,12 @@ export const Sidebar = (): ReactElement => {
             placeholder="Search"
           />
         </div>
-      </div>
+        <ul>
+          {rooms.map(room => (
+            <li key={room.id}>{room.name}</li>
+          ))}
+        </ul>
+      </nav>
       {isSidebarMenuOpened && !isLaptop && <div
         onClick={overlayClickHandler}
         className={classNames(

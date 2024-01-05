@@ -1,18 +1,23 @@
 @use "@shared/styles/functions" as f;
-@use "@shared/styles/mixins" as mixins;
+@use "@shared/styles/mixins" as m;
 
 .header {
-  min-height: 68px;
+  min-height: f.size(7);
   grid-column: 1 / 4;
+  border-bottom: 1px solid f.color(black, 0.2);
 }
 
 .headerInner {
   display: flex;
   align-items: center;
+
+  @include m.media-tablet {
+    flex-direction: row-reverse;
+  }
 }
 
 .toggleButton {
-  @include mixins.buttonReset;
+  @include m.buttonReset;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +25,7 @@
   width: 40px;
   height: 40px;
 
-  @include mixins.media-tablet {
+  @include m.media-tablet {
     display: none;
   }
 }
