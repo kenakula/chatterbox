@@ -1,9 +1,13 @@
 /* eslint-disable */
 
-import {cleanup} from '@testing-library/react';
-import {afterAll, afterEach, beforeAll, vi} from 'vitest';
+import { cleanup } from '@testing-library/react';
+import { server } from '@tests/msw/server';
+import { afterAll, afterEach, beforeAll, vi } from 'vitest';
 
 import '@testing-library/jest-dom/vitest';
+import 'jsdom';
+
+vi.mock('zustand');
 
 class MockPointerEvent extends Event {
   button: number;
@@ -41,6 +45,7 @@ global.process.env.VITE_BASE_API_URL = 'http://localhost:3000/api';
 global.process.env.VITE_JWT_COOKIE_NAME = 'test-cookie-name';
 
 beforeAll(() => {
+  server.listen({ onUnhandledRequest: 'error' });
 });
 
 afterAll(() => {
