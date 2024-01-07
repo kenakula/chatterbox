@@ -1,21 +1,9 @@
 @use "@shared/styles/functions" as f;
 
 .chat {
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
   border-radius: var(--radius-default);
   border: 1px solid f.color(black, 0.2);
-  overflow-y: auto;
-}
-
-.chatInner {
-  & > div:first-child {
-    display: flex;
-    flex-direction: column-reverse;
-    row-gap: f.size(3);
-    padding: f.size(2);
-  }
 }
 
 .message {
@@ -70,4 +58,14 @@
   .messageInput {
     flex-grow: 1;
   }
+}
+
+.chatInner {
+  padding: f.size(2);
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: f.size(2);
+  overflow-y: auto;
+  max-height: calc(100vh - 56px - 16px - 32px - 16px - 16px - 32px - 16px);
+  height: 100%;
 }

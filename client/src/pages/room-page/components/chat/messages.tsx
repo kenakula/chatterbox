@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import Scrollbars from 'react-custom-scrollbars-2';
 import classNames from 'classnames';
 
 import { Avatar } from '@app/components';
@@ -17,7 +16,7 @@ export const Messages = ({ list, userId, username }: IProps): ReactElement => {
   const getSenderName = (senderId: string): string => userId === senderId ? username : 'Q';
 
   return (
-    <Scrollbars className={style.chatInner}>
+    <div className={style.chatInner}>
       {list.map(({ messageId, text, timestamp, sentBy }) => (
         <div key={messageId} className={classNames(style.message, { [style.foreign]: sentBy !== userId })}>
           <Avatar
@@ -30,6 +29,6 @@ export const Messages = ({ list, userId, username }: IProps): ReactElement => {
           </div>
         </div>
       ))}
-    </Scrollbars>
+    </div>
   );
 };
