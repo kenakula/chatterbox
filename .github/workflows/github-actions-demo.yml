@@ -9,7 +9,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - run: cd api
+      - name: Install deps
+      - working-directory: ./api
       - run: yarn install
-      - run: yarn test
+      - name: Tests api
+      - working-directory: ./api
+      - run: yarn install
