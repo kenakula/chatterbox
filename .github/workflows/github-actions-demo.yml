@@ -12,6 +12,6 @@ jobs:
 
       - run: ls
       - run: cd api
-      - run: echo ${{github.workspace}}
+      - run: ls
       - run: yarn install
       - run: yarn test
