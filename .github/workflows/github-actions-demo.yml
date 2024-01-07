@@ -11,7 +11,7 @@ jobs:
           node-version: '18'
 
       - run: ls
-      - run: cd api
+      - run: cd api/
       - run: ls
       - run: yarn install
       - run: yarn test
