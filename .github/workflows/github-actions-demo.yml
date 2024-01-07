@@ -6,12 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+      - uses: action/setup-node@v3
       - name: Install deps
-      - working-directory: ./api
-      - run: yarn install
-      - name: Tests api
-      - working-directory: ./api
-      - run: yarn install
+        working-directory: ./api
+        run: yarn install
+      - name: Run Tests
+        working-directory: ./api
+        run: yarn test:cov
