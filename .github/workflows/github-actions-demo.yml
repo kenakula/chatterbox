@@ -10,6 +10,8 @@ jobs:
         with:
           node-version: '18'
 
+      - run: ls
       - run: cd api
+      - run: echo ${{github.workspace}}
       - run: yarn install
       - run: yarn test
