@@ -45,6 +45,7 @@ export const Modal = ({
     },
     overlay: {
       backgroundColor: 'var(--bg-overlay)',
+      zIndex: 'var(--z-modal-overlay)',
     },
   }), []);
 

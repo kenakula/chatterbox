@@ -29,7 +29,7 @@ export const EditRoomModal = ({ isOpen, handleClose }: IProps): ReactElement => 
   return (
     <Modal
       isOpen={isOpen} onClose={handleClose} title="Edit room" acceptBtn={{ type: 'submit', formId, text: 'Edit' }}
-      cancelBtn={{}}
+      cancelBtn={{ onClick: handleClose }}
     >
       <form onSubmit={handleSubmit(onSubmit)} id={formId}>
         <Controller

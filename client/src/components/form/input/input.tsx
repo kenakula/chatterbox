@@ -23,7 +23,7 @@ const InputComponent = (
         id={id ?? inputId}
         ref={ref}
       />
-      {state?.error && <span className={style.inputHelperText}>{state.error.message}</span>}
+      {state?.error && state?.error.message && <span className={style.inputHelperText}>{state.error.message}</span>}
     </div>
   );
 };
