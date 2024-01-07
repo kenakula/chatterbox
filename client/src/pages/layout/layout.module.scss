@@ -1,5 +1,5 @@
 @use "@shared/styles/functions" as f;
-@use "@shared/styles/mixins" as mixin;
+@use "@shared/styles/mixins" as m;
 
 .layout {
   --sidebar-width: 250px;
@@ -7,8 +7,12 @@
   width: 100%;
   grid-auto-rows: min-content 1fr;
 
-  @include mixin.media-tablet {
+  @include m.media-tablet {
     padding-left: var(--sidebar-width);
+  }
+
+  @include m.media-laptop {
+    --sidebar-width: 350px;
   }
 }
 
