@@ -1,7 +1,8 @@
 import { BaseSyntheticEvent, ReactElement } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 
 import { Input } from '@app/components';
+import { Button } from '@components/button/button';
 
 import { ILoginForm } from '../interfaces';
 import style from '../login.module.scss';
@@ -15,10 +16,21 @@ export const LoginForm = ({ onSubmit, control }: IProps): ReactElement => {
 
   return (
     <form onSubmit={onSubmit} className={style.loginForm}>
-      <Input control={control} name="username" id="username"/>
-      <Input control={control} name="password" id="password" type="password"/>
+      <Controller
+        control={control}
+        render={({ field, fieldState }) => (
+          <Input label="Username" id="username" {...field} state={fieldState} />
+        )} name="username"
+      />
 
-      <button type="submit">LOGIN</button>
+      <Controller
+        control={control}
+        render={({ field, fieldState }) => (
+          <Input label="Password" {...field} id="password" type="password" state={fieldState} />
+        )} name="password"
+      />
+
+      <Button type="submit" text="LOGIN" />
     </form>
   );
 };

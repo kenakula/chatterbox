@@ -1,12 +1,16 @@
-import { ChangeEvent, ReactElement } from 'react';
+import { ChangeEvent, ReactElement, useState } from 'react';
 import Scrollbars from 'react-custom-scrollbars-2';
+import { FiPlusCircle } from 'react-icons/fi';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 
-import { RoomCard } from '@app/components';
+import { Input, RoomCard } from '@app/components';
+import { Button } from '@components/button/button';
 import { RoomModel } from '@core/models';
 import { Media } from '@shared/constants';
 import { useStore } from '@store/store';
+
+import { AddRoomModal } from '../add-room-modal';
 
 import style from './sidebar.module.scss';
 
@@ -17,6 +21,7 @@ interface IProps {
 }
 
 export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElement => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { isSidebarMenuOpened, setSidebarMenuState } = useStore();
 
@@ -26,12 +31,21 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
     onInputChange(event.target.value);
   };
 
+  const onCloseModal = (): void => {
+    setIsModalOpen(false);
+  };
+
   const overlayClickHandler = (): void => {
     setSidebarMenuState(false);
   };
 
   const handleRoomClick = (): void => {
     setSidebarMenuState(false);
+  };
+
+  const addRoomHandler = (): void => {
+    setSidebarMenuState(false);
+    setIsModalOpen(true);
   };
 
   return (
@@ -43,17 +57,26 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
         )}
       >
         <div className={style.sidebarHeader}>
-          <input
+          <Input
+            name="roomSearch"
             onChange={onChange}
             value={inputValue}
             placeholder="Search"
+          />
+          <Button
+            icon={<FiPlusCircle />}
+            aria-label="New room"
+            type="button"
+            className={style.addRoomButton}
+            onClick={addRoomHandler}
+            variant="ghost"
           />
         </div>
         <Scrollbars autoHide>
           <ul className={style.sidebarList}>
             {rooms.map(room => (
               <li key={room.id}>
-                <RoomCard data={room} onClick={handleRoomClick}/>
+                <RoomCard data={room} onClick={handleRoomClick} />
               </li>
             ))}
           </ul>
@@ -66,6 +89,7 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
           { [style.opened]: isSidebarMenuOpened && !isLaptop },
         )}
       />}
+      <AddRoomModal isModalOpen={isModalOpen} onClose={onCloseModal} />
     </>
   );
 };

@@ -1,11 +1,11 @@
 import { StateCreator } from 'zustand';
 
-import { IUser } from '@shared/interfaces';
+import { UserModel } from '@core/models';
 
 export interface IAuthSlice {
-  user: IUser | null;
+  user: UserModel | null;
   isAuthenticated: boolean;
-  setUser: (user: IUser) => void;
+  setUser: (user: UserModel) => void;
   setAuthState: (state: boolean) => void;
   logout: () => void;
 }
@@ -13,7 +13,7 @@ export interface IAuthSlice {
 export const createAuthSlice: StateCreator<IAuthSlice> = (setState) => ({
   isAuthenticated: false,
   user: null,
-  setUser: (user: IUser) => setState(() => ({ user })),
+  setUser: (user: UserModel) => setState(() => ({ user })),
   logout: () => setState(() => ({ user: null, isAuthenticated: false })),
-  setAuthState: (state: boolean) => setState(() => ({ isAuthenticated: state }))
+  setAuthState: (state: boolean) => setState(() => ({ isAuthenticated: state })),
 });

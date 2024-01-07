@@ -1,6 +1,7 @@
 @use './variables' as *;
 
 @mixin buttonReset() {
+  padding: 0;
   display: block;
   border: none;
   background-color: transparent;

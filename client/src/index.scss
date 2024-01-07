@@ -9,7 +9,8 @@ $colors: (
         "primary": #176B87,
         "blue": #86B6F6,
         "blue-light": #B4D4FF,
-        "ghost": #EEF5FF
+        "ghost": #EEF5FF,
+        "red": #ff4747,
 );
 
 :root {
@@ -23,6 +24,8 @@ $colors: (
   --bg-primary: var(--color-white);
   --bg-ghost: var(--color-ghost);
 
+  --bg-overlay: rgba(40, 40, 40, 0.2);
+
   --text-primary: var(--color-black);
   --text-secondary: #1d1d1d;
 
@@ -31,7 +34,8 @@ $colors: (
 
   --size-step: 8px;
 
-  --radius-default: 8px;
+  --radius-default: 6px;
+  --radius-lg: 8px;
 
   --media-mobile: v.$media-mobile;
   --media-tablet: v.$media-tablet;
@@ -45,6 +49,7 @@ $colors: (
   --breakout-max-width: 1440px;
 
   --z-sidebar: 1000;
+  --z-sidebar-overlay: 999;
 
   --transition-default: 0.2s cubic-bezier(.83, .21, .68, .73);
 

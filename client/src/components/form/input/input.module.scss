@@ -1,0 +1,37 @@
+@use "@shared/styles/mixins" as m;
+@use "@shared/styles/functions" as f;
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(0.5);
+
+  label {
+    color: f.color(black, 0.5);
+  }
+}
+
+.input {
+  min-height: f.size(4);
+  border-radius: var(--radius-default);
+  border: 1px solid f.color(black, 0.2);
+  padding: 0 f.size(1);
+  width: 100%;
+  font-size: 0.9rem;
+  transition: border-color var(--transition-default);
+
+  &:focus {
+    outline: none;
+    border-color: f.color(black, 0.4)
+  }
+
+  &.invalid {
+    border-color: f.color(red);
+  }
+}
+
+.inputHelperText {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: f.color(red);
+}

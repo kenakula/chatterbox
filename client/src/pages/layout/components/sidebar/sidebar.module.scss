@@ -8,8 +8,8 @@
   top: 0;
   display: flex;
   flex-direction: column;
-  row-gap: f.size(2);
-  padding: 0 0 f.size(2);
+  row-gap: f.size(1);
+  padding: 0 0 f.size(1);
   max-height: 100dvh;
   width: min(70vw, var(--sidebar-width));
   height: 100%;
@@ -30,18 +30,19 @@
 }
 
 .sidebarOverlay {
+  z-index: var(--z-sidebar-overlay);
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
-  background-color: var(--color-black);
-  opacity: 0.2;
+  background-color: f.color(black, 0.2);
 }
 
 .sidebarHeader {
   display: flex;
   align-items: center;
+  column-gap: f.size(1);
   min-height: f.size(7);
   padding: 0 f.size(2);
   border-bottom: 1px solid f.color(black, 0.2);
@@ -52,6 +53,15 @@
 
   @include m.media-tablet {
     border-bottom: none;
+  }
+}
+
+.addRoomButton {
+  color: f.color(primary, 0.7);
+  transition: color var(--transition-default);
+
+  &:hover {
+    color: f.color(primary)
   }
 }
 

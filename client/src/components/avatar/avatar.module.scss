@@ -3,6 +3,7 @@
 
 .avatar {
   @include m.buttonReset;
+  flex-shrink: 0;
   width: f.size(4);
   height: f.size(4);
   border-radius: 50%;

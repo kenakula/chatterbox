@@ -1,7 +1,8 @@
 import { BaseSyntheticEvent, ReactElement } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 
 import { Input } from '@app/components';
+import { Button } from '@components/button/button';
 import { ISignUpForm } from '@pages/sign-up-page/interfaces';
 
 import style from '../sign-up.module.scss';
@@ -15,11 +16,25 @@ export const SignUpForm = ({ onSubmit, control }: IProps): ReactElement => {
 
   return (
     <form className={style.signUpForm} onSubmit={onSubmit}>
-      <Input control={control} name="username" id="username"/>
-      <Input control={control} name="password" id="password" type="password"/>
-      <Input control={control} name="passwordConfirm" id="passwordConfirm" type="password"/>
+      <Controller
+        control={control} render={({ field, fieldState }) => (
+        <Input label="Username" id="username" {...field} state={fieldState} />
+        )} name="username"
+      />
 
-      <button>SIGN UP</button>
+      <Controller
+        control={control} render={({ field, fieldState }) => (
+        <Input label="Password" id="password" {...field} state={fieldState} type="password" />
+        )} name="password"
+      />
+
+      <Controller
+        control={control} render={({ field, fieldState }) => (
+        <Input label="Password confirm" id="passwordConfirm" {...field} state={fieldState} type="password" />
+        )} name="passwordConfirm"
+      />
+
+      <Button type="submit" text="SIGN UP" />
     </form>
   );
 };

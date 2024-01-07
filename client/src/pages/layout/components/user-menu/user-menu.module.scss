@@ -4,6 +4,7 @@
 .userMenu {
   ul {
     @include m.listReset;
+    z-index: var(--z-sidebar);
     display: flex;
     flex-direction: column;
     row-gap: f.size(1);
@@ -30,5 +31,10 @@
 
   &:active {
     opacity: 0.7;
+  }
+
+  &.danger {
+    color: f.color(red);
+    font-weight: 600;
   }
 }

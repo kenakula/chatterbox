@@ -10,6 +10,7 @@
 .headerInner {
   display: flex;
   align-items: center;
+  column-gap: f.size(2);
 
   @include m.media-tablet {
     flex-direction: row-reverse;

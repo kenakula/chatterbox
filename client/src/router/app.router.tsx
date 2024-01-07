@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { ChatPage, Layout, LoginPage, MainPage, SignUpPage } from '@app/pages';
+import { Layout, LoginPage, MainPage, RoomPage, SignUpPage } from '@app/pages';
 import { AuthRoute } from '@app/router/auth-route.router';
 
 import { Paths } from './constants.router';
@@ -17,7 +17,7 @@ export const AppRouter = (): ReactElement => {
       <Route element={<ProtectedRoute/>}>
         <Route element={<Layout/>}>
           <Route path={Paths.MAIN_PAGE} index element={<MainPage/>}/>
-          <Route path={Paths.ROOM_PAGE} index element={<ChatPage/>}/>
+          <Route path={Paths.ROOM_PAGE} index element={<RoomPage/>}/>
         </Route>
       </Route>
       <Route element={<AuthRoute/>}>

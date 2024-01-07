@@ -1,0 +1,67 @@
+@use "@shared/styles/functions" as f;
+@use "@shared/styles/mixins" as m;
+
+.roomPage {
+  display: flex;
+}
+
+.pageWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(2);
+}
+
+
+.pageHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: f.size(2);
+  min-height: 32px;
+  padding: 0 f.size(5);
+}
+
+.pageTitle {
+  flex-grow: 1;
+  margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.addRoomButton {
+  @include m.buttonReset;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.exitButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(180deg);
+}
+
+.inputWrapper {
+  display: flex;
+  column-gap: f.size(1);
+  margin-top: auto;
+
+  input {
+    flex-grow: 1;
+  }
+}
+
+.messageInput {
+  flex-grow: 1;
+}

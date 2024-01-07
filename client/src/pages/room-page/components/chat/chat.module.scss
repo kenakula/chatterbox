@@ -1,0 +1,32 @@
+@use "@shared/styles/functions" as f;
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-radius: var(--radius-default);
+  border: 1px solid f.color(black, 0.2);
+  overflow-y: auto;
+}
+
+.chatInner {
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: f.size(3);
+  padding: f.size(10) f.size(2) f.size(2);
+  min-height: 100%;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  column-gap: f.size(1);
+}
+
+.messageText {
+  padding: f.size(1);
+  border-radius: var(--radius-lg);
+  border-bottom-left-radius: 0;
+  background-color: f.color(blue-light, 0.2);
+  font-size: 0.9rem;
+}

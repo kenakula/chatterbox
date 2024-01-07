@@ -1,6 +1,6 @@
-import { IUser } from '@shared/interfaces';
+import { UserModel } from '@core/models';
 
 export interface ISignInResponse {
   message: string;
-  user: IUser;
+  user: UserModel;
 }

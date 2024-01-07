@@ -1,0 +1,32 @@
+@use "@shared/styles/functions" as f;
+
+.modal {
+
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  column-gap: f.size(2);
+  margin-bottom: f.size(2);
+
+  button {
+    margin-left: auto;
+  }
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.modalContent {
+  flex-grow: 1;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  column-gap: f.size(2);
+}

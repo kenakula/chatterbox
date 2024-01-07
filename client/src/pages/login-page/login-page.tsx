@@ -14,7 +14,7 @@ import { ILoginForm } from './interfaces';
 import style from './login.module.scss';
 
 export const LoginPage = (): ReactElement => {
-  const { setUser, setAuthState } = useStore();
+  const { setAuthState } = useStore();
 
   const { handleSubmit, control, reset } = useForm<ILoginForm>({
     defaultValues: {
@@ -26,8 +26,8 @@ export const LoginPage = (): ReactElement => {
 
   const onSubmit = async (data: ILoginForm): Promise<void> => {
     try {
-      const { data: { user } } = await authApi.login(data);
-      setUser(user);
+      const { data: { refreshToken } } = await authApi.login(data);
+      console.log(refreshToken);
       setAuthState(true);
       reset();
     } catch (err) {
@@ -39,7 +39,7 @@ export const LoginPage = (): ReactElement => {
     <main className={classNames(style.loginPage, 'grid-layout')}>
       <div className={style.loginInner}>
         <h1>Login Page</h1>
-        <LoginForm control={control} onSubmit={handleSubmit(onSubmit)}/>
+        <LoginForm control={control} onSubmit={handleSubmit(onSubmit)} />
         <Link to={Paths.SIGNIN_PAGE}>
           register
         </Link>

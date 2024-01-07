@@ -1,0 +1,72 @@
+@use "@shared/styles/mixins" as m;
+@use "@shared/styles/functions" as f;
+
+.button {
+  @include m.buttonReset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: f.size(1);
+  min-width: 120px;
+  min-height: 32px;
+  border-radius: var(--radius-default);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.primary {
+  background-color: f.color(primary);
+  color: f.color(white);
+  transition: background-color var(--transition-default);
+
+  &:hover {
+    background-color: f.color(primary, 0.8);
+  }
+
+  &:active {
+    background-color: f.color(primary, 0.7);
+  }
+}
+
+.ghost {
+  background-color: transparent;
+  color: unset;
+}
+
+.outlined {
+  border: 1px solid f.color(primary, 0.3);
+  transition: border-color var(--transition-default);
+
+  &:hover {
+    border-color: f.color(primary, 0.7);
+  }
+
+  &:active {
+    border-color: f.color(primary);
+  }
+}
+
+.buttonText {
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+}
+
+.buttonIcon {
+  min-width: auto;
+  width: 32px;
+  height: 32px;
+  padding: f.size(0.5);
+  color: f.color(black, 0.5);
+  transition: color var(--transition-default);
+
+  &:hover {
+    color: f.color(black)
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}

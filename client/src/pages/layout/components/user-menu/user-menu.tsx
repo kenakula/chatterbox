@@ -1,6 +1,10 @@
-import { ReactElement, useRef, useState } from 'react';
+import { ReactElement, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 
+import { authApi } from '@app/api';
 import { Avatar } from '@app/components';
+import { IMenuItem } from '@shared/interfaces';
+import { useStore } from '@store/store';
 import { ControlledMenu, MenuItem } from '@szhsin/react-menu';
 
 import style from './user-menu.module.scss';
@@ -9,7 +13,24 @@ export const UserMenu = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
 
-  const MENU_ITEMS = ['Cut', 'Copy', 'Paste'];
+  const { logout } = useStore();
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await authApi.logout();
+      logout();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const MENU_ITEMS: IMenuItem[] = useMemo(() => ([
+    {
+      label: 'Logout',
+      className: style.danger,
+      onClick: handleLogout,
+    },
+  ]), []);
 
   const handleMenuOpen = (): void => {
     setIsOpen(true);
@@ -17,7 +38,7 @@ export const UserMenu = (): ReactElement => {
 
   return (
     <>
-      <Avatar name="menu" onClick={handleMenuOpen} ref={ref}/>
+      <Avatar name="menu" onClick={handleMenuOpen} ref={ref} />
       <ControlledMenu
         state={isOpen ? 'open' : 'closed'}
         onClose={() => setIsOpen(false)}
@@ -28,8 +49,12 @@ export const UserMenu = (): ReactElement => {
         arrow
         anchorRef={ref}
       >
-        {MENU_ITEMS.map(item => (
-          <MenuItem className={style.userMenuItem} key={item}>{item}</MenuItem>
+        {MENU_ITEMS.map(({ label, className, onClick }) => (
+          <MenuItem
+            className={classNames(style.userMenuItem, { [className ?? '']: className })}
+            key={label}
+            onClick={onClick}
+          >{label}</MenuItem>
         ))}
       </ControlledMenu>
     </>

@@ -17,6 +17,10 @@ class RoomsApi {
       params,
     });
   }
+
+  public async getRoomInfo(id?: string): Promise<IApiResponse<RoomModel>> {
+    return this.instance.get(`${this.path}/${id}`);
+  }
 }
 
 export const roomsApi = new RoomsApi(axiosInstance);

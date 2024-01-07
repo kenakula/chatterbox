@@ -1,22 +1,31 @@
-import { HTMLProps, ReactElement } from 'react';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { ForwardedRef, forwardRef, HTMLProps, ReactElement, useId } from 'react';
+import { ControllerFieldState } from 'react-hook-form';
+import classNames from 'classnames';
 
-import style from './style.module.scss';
+import style from './input.module.scss';
 
-export interface IInput<T extends FieldValues> extends HTMLProps<HTMLInputElement> {
-  control: Control<T>;
-  name: Path<T>;
+export interface IInput extends HTMLProps<HTMLInputElement> {
+  label?: string;
+  state?: ControllerFieldState;
 }
 
-export const Input = <T extends FieldValues>({ control, name, ...rest }: IInput<T>): ReactElement => {
+const InputComponent = (
+  { className, label, id, state, ...rest }: IInput,
+  ref: ForwardedRef<HTMLInputElement>,
+): ReactElement => {
+  const inputId = useId();
 
   return (
-    <Controller
-      render={({ field }) => (
-        <input className={style.input} {...field} {...rest}/>
-      )}
-      name={name}
-      control={control}
-    />
+    <div className={classNames(style.inputWrapper, { [className ?? '']: className })}>
+      {label && <label htmlFor={id ?? inputId}>{label}</label>}
+      <input
+        className={classNames(style.input, { [style.invalid]: !!state?.error })} {...rest}
+        id={id ?? inputId}
+        ref={ref}
+      />
+      {state?.error && <span className={style.inputHelperText}>{state.error.message}</span>}
+    </div>
   );
 };
+
+export const Input = forwardRef(InputComponent);
