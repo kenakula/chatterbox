@@ -1,15 +1,25 @@
-name: GitHub Actions Demo
+name: Chatterbox tests
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [ push ]
 jobs:
-  tests-api:
+  default:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-      - name: Install deps
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start container
+        run: docker compose up -d --build
+
+      - name: Install node
+        uses: actions/setup-node@v3
+
+      - name: Installs deps
         working-directory: ./api
         run: yarn install
-      - name: Run Tests
+
+      - name: Runs api tests
         working-directory: ./api
         run: yarn test:cov
