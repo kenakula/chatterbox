@@ -54,9 +54,20 @@
   &.foreign {
     border-bottom-left-radius: var(--radius-lg);
     border-bottom-right-radius: 0;
+    background-color: f.color(green, 0.1);
 
     span {
       align-self: flex-start;
     }
+  }
+}
+
+.footer {
+  display: flex;
+  column-gap: f.size(1);
+  margin-top: auto;
+
+  .messageInput {
+    flex-grow: 1;
   }
 }

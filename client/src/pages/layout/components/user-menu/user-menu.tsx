@@ -13,7 +13,7 @@ export const UserMenu = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
 
-  const { logout } = useStore();
+  const { logout, user } = useStore();
 
   const handleLogout = async (): Promise<void> => {
     try {
@@ -38,7 +38,7 @@ export const UserMenu = (): ReactElement => {
 
   return (
     <>
-      <Avatar name="menu" onClick={handleMenuOpen} ref={ref} />
+      {user && <Avatar name={user.username} onClick={handleMenuOpen} ref={ref} />}
       <ControlledMenu
         state={isOpen ? 'open' : 'closed'}
         onClose={() => setIsOpen(false)}

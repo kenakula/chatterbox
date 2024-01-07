@@ -52,16 +52,6 @@
   transform: rotate(180deg);
 }
 
-.inputWrapper {
-  display: flex;
-  column-gap: f.size(1);
-  margin-top: auto;
-
-  input {
-    flex-grow: 1;
-  }
-}
-
 .messageInput {
   flex-grow: 1;
 }

@@ -8,13 +8,22 @@ interface IProps {
   src?: string;
   onClick?: () => void;
   className?: string;
+  background?: string;
 }
 
-const Component = ({ src, name, onClick, className }: IProps, ref: ForwardedRef<HTMLButtonElement>): ReactElement => {
+const Component = (
+  { src, name, onClick, className, background }: IProps,
+  ref: ForwardedRef<HTMLButtonElement>,
+): ReactElement => {
 
   return (
-    <button ref={ref} onClick={onClick} className={classNames(style.avatar, { classname: !!className })}>
-      {src ? <img src={src} alt={name}/> : name[0].toUpperCase()}
+    <button
+      style={{ backgroundColor: background }}
+      ref={ref}
+      onClick={onClick}
+      className={classNames(style.avatar, { classname: !!className })}
+    >
+      {src ? <img src={src} alt={name} /> : name[0].toUpperCase()}
     </button>
   );
 };

@@ -62,6 +62,7 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
             onChange={onChange}
             value={inputValue}
             placeholder="Search"
+            className={style.searchInput}
           />
           <Button
             icon={<FiPlusCircle />}
