@@ -1,0 +1,28 @@
+name: Chatterbox tests
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [ push ]
+jobs:
+  default:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start container
+        run: docker compose up -d --build
+        env:
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+
+      - name: Install node
+        uses: actions/setup-node@v3
+
+      - name: Installs deps
+        working-directory: ./api
+        run: yarn install
+
+      - name: Runs api tests
+        working-directory: ./api
+        run: yarn test:cov
