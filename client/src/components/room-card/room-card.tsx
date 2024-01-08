@@ -22,11 +22,11 @@ export const RoomCard = ({ data: { description, name, id }, onClick }: IProps): 
       onClick={onClick}
     >
       <div>
-        <Avatar name={name}/>
+        <Avatar name={name} />
       </div>
       <div className={style.roomCardDescription}>
         <p>{name}</p>
-        <span>{description}</span>
+        {description && <span>{description}</span>}
       </div>
     </NavLink>
   );

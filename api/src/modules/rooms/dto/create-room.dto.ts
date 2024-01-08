@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateRoomDto {
   @ApiProperty({ type: String })
@@ -9,10 +9,17 @@ export class CreateRoomDto {
 
   @ApiPropertyOptional({ type: String })
   @IsString()
-  description: string;
+  @IsOptional()
+  description?: string;
 
   @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
   creator: string;
+
+  @ApiProperty({ type: [String] })
+  @IsArray()
+  @IsString({ each: true })
+  @ArrayMinSize(1)
+  users: string[];
 }

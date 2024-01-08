@@ -36,7 +36,7 @@ export class RoomsGateway implements OnGatewayConnection, OnGatewayDisconnect, I
   ) {}
 
   handleConnection(socket: Socket) {
-    this.logger.warn(`socket ${socket.id} connected. Total connections: ${this.server.engine.clientsCount}`);
+    this.logger.log(`socket ${socket.id} connected. Total connections: ${this.server.engine.clientsCount}`);
   }
 
   handleDisconnect(socket: Socket) {
@@ -69,7 +69,7 @@ export class RoomsGateway implements OnGatewayConnection, OnGatewayDisconnect, I
   ) {
     socket.join(roomId);
 
-    this.logger.warn(`user ${user} joined the room`);
+    this.logger.log(`user ${user} joined the room`);
     // const message = this.createMessage(`Hello ${user}! Welcome to ${roomId}`, 'system');
     //
     // this.server.to(roomId).emit('chatMessage', {

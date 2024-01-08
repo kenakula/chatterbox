@@ -12,8 +12,12 @@ import { IRoomsFilter } from './interfaces';
 export class RoomsService implements IRoomsUsecases<TRoomDocument> {
   constructor(@InjectModel(Room.name) private readonly roomModel: Model<Room>) {}
 
-  createRoom(data: CreateRoomDto): Promise<TRoomDocument> {
-    return this.roomModel.create(data);
+  async createRoom(data: CreateRoomDto): Promise<TRoomDocument> {
+    const room = await this.roomModel.create(data);
+    await room.populate('users');
+    await room.populate('creator');
+
+    return room;
   }
 
   async delete(id: string): Promise<void> {

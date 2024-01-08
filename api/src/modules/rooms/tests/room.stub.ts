@@ -22,6 +22,7 @@ export const createRoomStub = (options?: IStubOptions): CreateRoomDto => ({
   name: options?.name ?? 'testRoomName',
   description: options?.description ?? 'testRoomDescription',
   creator: options?.creator,
+  users: [],
 });
 
 export const updateRoomStub = (option?: IStubOptions): UpdateRoomDto => ({

@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 import Scrollbars from 'react-custom-scrollbars-2';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useMedia } from 'react-use';
@@ -6,33 +6,24 @@ import classNames from 'classnames';
 
 import { Input, RoomCard } from '@app/components';
 import { Button } from '@components/button/button';
-import { RoomModel } from '@core/models';
 import { Media } from '@shared/constants';
 import { useStore } from '@store/store';
-
-import { AddRoomModal } from '../add-room-modal';
 
 import style from './sidebar.module.scss';
 
 interface IProps {
-  rooms: RoomModel[];
   inputValue: string;
   onInputChange: (value: string) => void;
 }
 
-export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElement => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export const Sidebar = ({ inputValue, onInputChange }: IProps): ReactElement => {
 
-  const { isSidebarMenuOpened, setSidebarMenuState } = useStore();
+  const { isSidebarMenuOpened, setSidebarMenuState, rooms, setRoomModalOpenState, setRoomModalMode } = useStore();
 
   const isLaptop = useMedia(Media.LAPTOP);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onInputChange(event.target.value);
-  };
-
-  const onCloseModal = (): void => {
-    setIsModalOpen(false);
   };
 
   const overlayClickHandler = (): void => {
@@ -45,7 +36,8 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
 
   const addRoomHandler = (): void => {
     setSidebarMenuState(false);
-    setIsModalOpen(true);
+    setRoomModalMode('create');
+    setRoomModalOpenState(true);
   };
 
   return (
@@ -75,7 +67,7 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
         </div>
         <Scrollbars autoHide>
           <ul className={style.sidebarList}>
-            {rooms.map(room => (
+            {rooms && rooms.map(room => (
               <li key={room.id}>
                 <RoomCard data={room} onClick={handleRoomClick} />
               </li>
@@ -90,7 +82,6 @@ export const Sidebar = ({ rooms, inputValue, onInputChange }: IProps): ReactElem
           { [style.opened]: isSidebarMenuOpened && !isLaptop },
         )}
       />}
-      <AddRoomModal isModalOpen={isModalOpen} onClose={onCloseModal} />
     </>
   );
 };

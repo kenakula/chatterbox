@@ -11,11 +11,11 @@ export class RoomPresenterDto extends RoomModel {
     this.description = data.description;
     this.isActive = data.isActive;
     this.messages = data.messages;
-    this.creator = this.toUserDocument(data.creator);
-    this.users = data.users?.map(user => this.toUserDocument(user)) ?? [];
+    this.creator = this.toUserModel(data.creator);
+    this.users = data.users?.map(user => this.toUserModel(user)) ?? [];
   }
 
-  private toUserDocument(entity: User): UserModel {
+  private toUserModel(entity: User): UserModel {
     const model = new UserModel();
     model.id = (entity as any)?._id;
     model.username = entity?.username;

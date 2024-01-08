@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'react-use';
 
 import { roomsApi } from '@app/api/rooms.api';
-import { RoomModel } from '@core/models';
+import { useStore } from '@store/store';
 
 interface IHookValue {
-  data: RoomModel[];
   inputValue: string;
   onInputChange: (value: string) => void;
   isFetching: boolean;
@@ -13,9 +12,10 @@ interface IHookValue {
 
 export const useGetRooms = (): IHookValue => {
   const roomsFetching = useRef<boolean>(false);
-  const [rooms, setRooms] = useState<RoomModel[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
+
+  const { setRooms } = useStore();
 
   useDebounce(
     () => {
@@ -48,7 +48,6 @@ export const useGetRooms = (): IHookValue => {
   }, [debouncedValue]);
 
   return {
-    data: rooms,
     inputValue,
     onInputChange,
     isFetching: roomsFetching.current,

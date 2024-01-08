@@ -1,7 +1,20 @@
 @use "@shared/styles/functions" as f;
+@use "@shared/styles/mixins" as m;
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  padding: f.size(2);
+  width: 100%;
+  min-height: 60vh;
+  background-color: var(--bg-primary);
+  border: none;
+  box-shadow: var(--shadow-default);
+  border-radius: var(--radius-default);
 
+  @include m.media-tablet {
+    max-width: min(70vw, 600px);
+  }
 }
 
 .modalHeader {

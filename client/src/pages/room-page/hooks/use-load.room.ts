@@ -54,6 +54,7 @@ export const useLoadRoom = ({ roomId }: IHookProps): IHookValue => {
 
     return () => {
       document.title = 'Chatterbox';
+      setCurrentRoom(null);
     };
   }, [roomId]);
 

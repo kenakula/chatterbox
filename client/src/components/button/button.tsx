@@ -22,6 +22,7 @@ export const Button = ({
   formId,
   onClick,
   className,
+  disabled = false,
   fullWidth = false,
   variant = 'primary',
 }: IProps): ReactElement => {
@@ -30,6 +31,7 @@ export const Button = ({
       [style.primary]: variant === 'primary',
       [style.ghost]: variant === 'ghost',
       [style.outlined]: variant === 'outlined',
+      [style.disabled]: disabled,
     });
   }, [variant]);
 

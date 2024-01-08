@@ -1,0 +1,7 @@
+@use "@shared/styles/functions" as f;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: f.size(2);
+}

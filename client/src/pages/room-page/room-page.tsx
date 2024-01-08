@@ -1,11 +1,11 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { IoMdExit } from 'react-icons/io';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Paths } from '@app/router';
 import { Button } from '@components/button/button';
-import { Chat, EditRoomModal } from '@pages/room-page/components';
+import { Chat } from '@pages/room-page/components';
 import { useStore } from '@store/store';
 
 import { useLoadRoom } from './hooks';
@@ -13,21 +13,17 @@ import style from './room-page.module.scss';
 
 export const RoomPage = (): ReactElement => {
   const { id: roomId } = useParams<{ id: string }>();
-  const [isEditRoomModalOpened, setIsEditRoomModalOpened] = useState(false);
 
   const { data: roomData, isError, messages, addMessage } = useLoadRoom({ roomId });
-  const { user } = useStore();
+  const { user, setRoomModalOpenState, setRoomModalMode } = useStore();
 
   const navigate = useNavigate();
 
   const renderChat = !!(roomId && roomData && user);
 
   const onEditRoomModalOpen = (): void => {
-    setIsEditRoomModalOpened(true);
-  };
-
-  const onEditRoomModalClose = (): void => {
-    setIsEditRoomModalOpened(false);
+    setRoomModalMode('edit');
+    setRoomModalOpenState(true);
   };
 
   const onExitRoom = (): void => {
@@ -58,7 +54,6 @@ export const RoomPage = (): ReactElement => {
           user={user}
         />}
       </div>
-      <EditRoomModal isOpen={isEditRoomModalOpened} handleClose={onEditRoomModalClose} />
     </section>
   );
 };
